@@ -131,6 +131,7 @@ public abstract class ByteField {
         fieldForUI.setValue(getValue());
         fieldForUI.setValueString(getValueString());
         fieldForUI.setNeedFormat(needFormat);
+        fieldForUI.setUnit(getUnit());
         return fieldForUI;
     }
 

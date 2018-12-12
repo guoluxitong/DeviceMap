@@ -1,15 +1,13 @@
 package cn.com.sdcsoft.devices;
 
+import cn.com.sdcsoft.devices.entity.Command;
 import cn.com.sdcsoft.devices.entity.Element;
 import cn.com.sdcsoft.devices.map.DevicePointMap;
 import cn.com.sdcsoft.devices.meta.ByteField;
 import cn.com.sdcsoft.devices.meta.DeviceFieldForUI;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 /**
  * Created by jialiang on 2018/4/19.
@@ -58,6 +56,17 @@ public abstract class SdcSoftDevice implements Serializable {
     private String deviceNo;
     private String nickName;
     private String deviceType;
+
+    public int getModbusNo() {
+        return modbusNo;
+    }
+
+    public void setModbusNo(int modbusNo) {
+        this.modbusNo = modbusNo;
+    }
+
+    private int modbusNo = 1;
+
     /**
      * 设备字节长度
      */
@@ -262,6 +271,14 @@ public abstract class SdcSoftDevice implements Serializable {
 
     public boolean validateFalse(int bytesLength) {
         return BYTE_ARRAY_LENGTH > bytesLength;
+    }
+
+    /**
+     * 设备命令集合
+     * @return
+     */
+    public List<Command> getCommands(){
+        return Collections.EMPTY_LIST;
     }
 
     protected class MyArrayList<E> extends ArrayList<E> {
