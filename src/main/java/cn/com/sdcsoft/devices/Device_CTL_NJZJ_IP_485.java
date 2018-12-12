@@ -1,12 +1,11 @@
 package cn.com.sdcsoft.devices;
 
-import cn.com.sdcsoft.devices.Device_CTL_NJZJ_IPK2;
 import cn.com.sdcsoft.devices.meta.ByteField;
 import cn.com.sdcsoft.devices.meta.DeviceFieldForUI;
 
 import java.util.List;
 
-public abstract class Device_CTL_NJZJ_IP_485 extends Device_CTL_NJZJ_IPK2 {
+public abstract class Device_CTL_NJZJ_IP_485 extends Device_CTL_NJZJ_IP {
 
     public Device_CTL_NJZJ_IP_485(){
         BYTE_ARRAY_LENGTH = 765;
