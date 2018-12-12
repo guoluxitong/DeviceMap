@@ -301,6 +301,7 @@ public abstract class SdcSoftDevice implements Serializable {
         int Dian = 1;
         int Mei = 2;
         int ShengWuZhi = 3;
+        int YuRe = 30;
     }
 
     public static class DeviceAdapterUtil {

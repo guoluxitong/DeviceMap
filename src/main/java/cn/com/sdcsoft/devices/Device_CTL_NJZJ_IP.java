@@ -190,14 +190,28 @@ public abstract class Device_CTL_NJZJ_IP extends Device_CTL {
     @Override
     public List<Command> getCommands() {
         ArrayList<Command> list = new ArrayList<Command>(10);
-        list.add(
-                Command.getInstance(
-                        this,
-                        "se_",
-                        "060500",
-                        50,
-                        300)
-        );
+        if(this.powerVal== Power.Dian) {
+            if (this.mediaVal == Media.ReShui) { //电热水
+                list.add(
+                        Command.getInstance(
+                                this,
+                                "se_",
+                                "060500",
+                                50,
+                                300)
+                );
+            }else if(this.mediaVal == Media.ZhenKong){
+
+            }
+        }else if(this.powerVal == Power.YouQi){
+            if (this.mediaVal == Media.ReShui) { //油气热水
+
+            }
+        }else if (this.powerVal == Power.Mei){
+            if (this.mediaVal == Media.ReShui) { //燃煤热水
+
+            }
+        }
         return list;
     }
 }
