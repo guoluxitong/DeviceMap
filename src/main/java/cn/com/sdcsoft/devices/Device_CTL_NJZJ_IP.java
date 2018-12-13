@@ -197,6 +197,7 @@ public abstract class Device_CTL_NJZJ_IP extends Device_CTL {
                                 this,
                                 "se_",
                                 "060500",
+                                Command.INT_VALUE,
                                 50,
                                 300)
                 );

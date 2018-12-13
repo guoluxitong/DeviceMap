@@ -11,19 +11,25 @@ public class Command {
     /**
      * 时间型Min-Max Value的取值
      */
-    public static final int TIME_VALUE = -1;
+    public static final int INT_VALUE = 1;
+    public static final int FLOAT_VALUE = 2;
+    public static final int TIME_VALUE = 3;
 
     private Command(){
 
     }
     private String name, cmdPart,value,unit,title;
-    private int maxValue,minValue;
+    private int valueType = INT_VALUE,maxValue,minValue;
     private SdcSoftDevice device;
+
 
     void setCmdPart(String cmdPart){
         this.cmdPart = String.format("%02d%s",device.getModbusNo(),cmdPart);
     }
 
+    public int getValueType(){
+        return valueType;
+    }
     public int getMaxValue() {
         return maxValue;
     }
@@ -53,7 +59,7 @@ public class Command {
     }
 
     public void setValue(String valueString){
-        if(TIME_VALUE == maxValue && TIME_VALUE == minValue){
+        if(TIME_VALUE == valueType){
             String[] strs = valueString.split(":");
             value = String.format("%04x",Integer.parseInt(strs[0])*60+Integer.parseInt(strs[1]));
         }else {
@@ -114,11 +120,12 @@ public class Command {
     }
 
     public static Command getInstance(
-            SdcSoftDevice device, String name, String cmdPart, int minValue, int maxValue
+            SdcSoftDevice device, String name, String cmdPart,int valueType, int minValue, int maxValue
     ){
         Command command = new Command();
         command.device = device;
         command.name = name;
+        command.valueType = valueType;
         command.minValue = minValue;
         command.maxValue = maxValue;
         command.setCmdPart(cmdPart);
