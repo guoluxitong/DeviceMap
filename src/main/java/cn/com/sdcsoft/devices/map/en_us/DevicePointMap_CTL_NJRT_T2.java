@@ -18,16 +18,16 @@ public class DevicePointMap_CTL_NJRT_T2 extends DevicePointMap {
 
     public DevicePointMap_CTL_NJRT_T2() {
 
-        map.put("_ranshaoqi", ByteField.Init(new BaseInfoField(), "_ranshaoqi", 0, 0, "Burner", false));
-        map.put("_addshuibeng", ByteField.Init(new BaseInfoField(), "_addshuibeng", 0, 0, "Water Feeding Pump", false));
-        map.put("_lengningbeng", ByteField.Init(new BaseInfoField(), "_lengningbeng", 0, 0, "Condensation Pump", false));
+        map.put("_ranshaoqi", ByteField.Init(new BaseInfoField(), "_ranshaoqi", 0, 0, "Burner"));
+        map.put("_addshuibeng", ByteField.Init(new BaseInfoField(), "_addshuibeng", 0, 0, "Water Feeding Pump"));
+        map.put("_lengningbeng", ByteField.Init(new BaseInfoField(), "_lengningbeng", 0, 0, "Condensation Pump"));
 
         map.put(SdcSoftDevice.KEY_POINT_SYSTEM_STATUS, ByteField.Init(new BaseInfoField(), SdcSoftDevice.KEY_POINT_SYSTEM_STATUS, 3, 2, "System State", coms_status));
         map.put(SdcSoftDevice.KEY_POINT_RUN_LIFE, ByteField.Init(new BaseInfoField(), SdcSoftDevice.KEY_POINT_RUN_LIFE, 53, 2, "Running Time"));
         map.put(SdcSoftDevice.KEY_POINT_RUN_DAYS, ByteField.Init(new BaseInfoField(), SdcSoftDevice.KEY_POINT_RUN_DAYS, 0, 0, "Running Days", "Day"));
         map.put(SdcSoftDevice.KEY_POINT_RUN_HOURS, ByteField.Init(new BaseInfoField(), SdcSoftDevice.KEY_POINT_RUN_HOURS, 0, 0, "Running Hours", "Hour"));
-        map.put(SdcSoftDevice.KEY_POINT_POWER, ByteField.Init(new PowerField(), SdcSoftDevice.KEY_POINT_POWER, 87, 2, "Fuel Type", coms_power));
-        map.put(SdcSoftDevice.KEY_POINT_MEDIA, ByteField.Init(new MediaField(), SdcSoftDevice.KEY_POINT_MEDIA, 89, 2, "Medium Type", coms_media));
+        map.put(SdcSoftDevice.KEY_POINT_POWER, ByteField.Init(new BaseInfoField(), SdcSoftDevice.KEY_POINT_POWER, 87, 2, "Fuel Type", coms_power));
+        map.put(SdcSoftDevice.KEY_POINT_MEDIA, ByteField.Init(new BaseInfoField(), SdcSoftDevice.KEY_POINT_MEDIA, 89, 2, "Medium Type", coms_media));
 
         map.put("oc_ranshaoqiqitingkongzhi", ByteField.Init(new OpenCloseField(), "oc_ranshaoqiqitingkongzhi", 9, 2, "Burner on-off Control", 0, coms_start_stop));
         map.put("oc_ranshaoqifuhetiaojie", ByteField.Init(new OpenCloseField(), "oc_ranshaoqifuhetiaojie", 9, 2, "Burner Load Adjustment", 1, coms_start_stop));

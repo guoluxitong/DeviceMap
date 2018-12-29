@@ -1,8 +1,8 @@
 package cn.com.sdcsoft.devices.meta;
 
-import cn.com.sdcsoft.devices.SdcSoftDevice;
 import cn.com.sdcsoft.devices.entity.Command;
 import cn.com.sdcsoft.devices.entity.IntCommand;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 
@@ -11,6 +11,7 @@ import java.util.HashMap;
  */
 
 public abstract class ByteField {
+
     private String name;
     private String unit;
     private String title;
@@ -127,7 +128,7 @@ public abstract class ByteField {
         this.valueMap = valueMap;
     }
 
-    public abstract void setDeviceFieldForUIKey(DeviceFieldForUI fieldForUI);
+    protected abstract void setDeviceFieldForUIKey(DeviceFieldForUI fieldForUI);
 
     public abstract Object getValue();
 
@@ -146,31 +147,10 @@ public abstract class ByteField {
         return String.format("%%s%s", getUnit());
     }
 
-//    public String getValueString() {
-//        return String.format("%%s%s", getValue().toString(), getUnit());
-//    }
-
-    protected void setUIKey(){
-
-    }
     public DeviceFieldForUI getDeviceFieldForUI()
     {
         DeviceFieldForUI fieldForUI = new DeviceFieldForUI();
-        if(bytesLength < 1)//如果是要计算的点位对象
-        {
-            if (isShow())//如果要显示，则该点位对象为其类型所对应的key，该计算点位将包含在SdcsoftDevice对应的List集合中
-            {
-                setDeviceFieldForUIKey(fieldForUI);
-            }
-            else //如果无需显示，则该点位对象的key设置为SdcSoftDevice.KEY_Count_Fields，该点位将包含在该key对应的SdcsoftDevice的List集合中
-            {
-                fieldForUI.setKey(SdcSoftDevice.KEY_Count_Fields);
-            }
-        }
-        else
-        {
-            setDeviceFieldForUIKey(fieldForUI);
-        }
+        setDeviceFieldForUIKey(fieldForUI);
         fieldForUI.setName(getName());
         fieldForUI.setTitle(getTitle());
         fieldForUI.setValue(getValue());
@@ -180,24 +160,55 @@ public abstract class ByteField {
         return fieldForUI;
     }
 
-    public static ByteField Init(ByteField field, String name, int startIndex, int bytesLength, String title) {
+    /// <summary>
+    /// 添加计算并显示的点位
+    /// </summary>
+    public static ByteField Init(@NotNull String groupKey, CountShowField field, String name, String title)
+    {
         field.setName(name);
-        field.setStartIndex(startIndex);
-        field.setBytesLength(bytesLength);
+        field.setTitle(title);
+        field.groupKey = groupKey;
+        return field;
+    }
+    public static ByteField Init(@NotNull String groupKey, CountShowField field, String name, String title,String unit)
+    {
+        Init(groupKey,field,name,title);
+        field.setUnit(unit);
+        return field;
+    }
+
+    /// <summary>
+    /// 添加计算不显示的点位
+    /// </summary>
+    public static ByteField Init(CountField field, String name, String title)
+    {
+        field.setName(name);
         field.setTitle(title);
         return field;
     }
 
     /// <summary>
-    /// 添加计算点位，isShow确定点位是否用来显示，默认为true
+    /// 添加计算不显示的点位
     /// </summary>
-    public static ByteField Init(ByteField field, String name, int startIndex, int bytesLength, String title,boolean isShow)
+    public static ByteField Init(FixedValueField field, String name, String title,int value, HashMap<Integer, String> valueMap)
+    {
+        field.setName(name);
+        field.setTitle(title);
+        field.setValue(value);
+        field.setValueMap(valueMap);
+        return field;
+    }
+
+
+    /// <summary>
+    /// 添加显示点位
+    /// </summary>
+    public static ByteField Init(ByteField field, String name, int startIndex, int bytesLength, String title)
     {
         field.setName(name);
         field.setStartIndex(startIndex);
         field.setBytesLength(bytesLength);
         field.setTitle(title);
-        field.show = isShow;
         return field;
     }
 

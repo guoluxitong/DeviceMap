@@ -1,13 +1,10 @@
 package cn.com.sdcsoft.devices.meta;
 
 
-import cn.com.sdcsoft.devices.SdcSoftDevice;
-
 /**
- * Created by jialiang on 2018/4/19.
+ * 值恒定的点位，一般为燃料与介质
  */
-
-public abstract class MediaField extends ByteField {
+public class FixedValueField extends BaseInfoField {
     protected int value;
 
     @Override
@@ -15,12 +12,13 @@ public abstract class MediaField extends ByteField {
         return value;
     }
 
-
-    @Override
-    public void setDeviceFieldForUIKey(DeviceFieldForUI fieldForUI) {
-        fieldForUI.setKey(SdcSoftDevice.KEY_BASE);
+    public void setValue(int value){
+        this.value = value;
     }
 
+    public boolean haveValue(byte... bytes) {
+        return true;
+    }
 
     @Override
     public String getValueString() {

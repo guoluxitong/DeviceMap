@@ -3,6 +3,8 @@ package cn.com.sdcsoft.devices.map.zh_cn;
 
 import cn.com.sdcsoft.devices.SdcSoftDevice;
 import cn.com.sdcsoft.devices.meta.ByteField;
+import cn.com.sdcsoft.devices.meta.CountField;
+import cn.com.sdcsoft.devices.meta.FixedValueField;
 import cn.com.sdcsoft.devices.meta.PLC.*;
 
 /**
@@ -18,19 +20,19 @@ public class DevicePointMap_PLC_RanMeiZhengQi extends DevicePointMap {
         /**
          * 计算属性（不显示）
          */
-        map.put("_addshuibeng", ByteField.Init(new DeviceField(), "_addshuibeng", 0, 0, "给水泵", false));
-        map.put("_chuanyangbeng", ByteField.Init(new DeviceField(), "_chuanyangbeng", 0, 0, "除氧泵", false));
-        map.put("_gufengfan", ByteField.Init(new DeviceField(), "_gufengfan", 0, 0, "鼓风", false));
-        map.put("_yinfengfan", ByteField.Init(new DeviceField(), "_yinfengfan", 0, 0, "引风", false));
-        map.put("_lupaifan", ByteField.Init(new DeviceField(), "_lupaifan", 0, 0, "炉排", false));
-        map.put("_chuzhafan", ByteField.Init(new DeviceField(), "_chuzhafan", 0, 0, "出渣", false));
+        map.put("_addshuibeng", ByteField.Init(new CountField(), "_addshuibeng", "给水泵"));
+        map.put("_chuanyangbeng", ByteField.Init(new CountField(), "_chuanyangbeng",  "除氧泵"));
+        map.put("_gufengfan", ByteField.Init(new CountField(), "_gufengfan",  "鼓风"));
+        map.put("_yinfengfan", ByteField.Init(new CountField(), "_yinfengfan", "引风"));
+        map.put("_lupaifan", ByteField.Init(new CountField(), "_lupaifan", "炉排"));
+        map.put("_chuzhafan", ByteField.Init(new CountField(), "_chuzhafan","出渣"));
 
 
         map.put(SdcSoftDevice.KEY_POINT_RUN_HOURS, ByteField.Init(new BaseInfoField(), SdcSoftDevice.KEY_POINT_RUN_HOURS, 9, 2, "运行小时数", "时"));
         map.put(SdcSoftDevice.KEY_POINT_RUN_DAYS, ByteField.Init(new BaseInfoField(), SdcSoftDevice.KEY_POINT_RUN_DAYS, 11, 2, "运行天数", "天"));
         map.put(SdcSoftDevice.KEY_POINT_SYSTEM_STATUS, ByteField.Init(new BaseInfoField(), SdcSoftDevice.KEY_POINT_SYSTEM_STATUS, 13, 2, "系统状态",PLC_Common_ValueMaps.coms_status));
-        map.put(SdcSoftDevice.KEY_POINT_POWER, ByteField.Init(new PowerField(), SdcSoftDevice.KEY_POINT_POWER, 2, 0, "燃料",DevicePointMap.coms_power));
-        map.put(SdcSoftDevice.KEY_POINT_MEDIA, ByteField.Init(new MediaField(), SdcSoftDevice.KEY_POINT_MEDIA, 1, 0, "介质",DevicePointMap.coms_media));
+        map.put(SdcSoftDevice.KEY_POINT_POWER, ByteField.Init(new FixedValueField(), SdcSoftDevice.KEY_POINT_POWER,  "燃料",2,DevicePointMap.coms_power));
+        map.put(SdcSoftDevice.KEY_POINT_MEDIA, ByteField.Init(new FixedValueField(), SdcSoftDevice.KEY_POINT_MEDIA,  "介质",1,DevicePointMap.coms_media));
         map.put("ba_shuiweizhuangtai", ByteField.Init(new BaseInfoField(), "ba_shuiweizhuangtai", 19, 2, "水位状态",DevicePointMap.coms_level));
         map.put("ba_ranshaoqizhuangtai", ByteField.Init(new BaseInfoField(), "ba_ranshaoqizhuangtai", 21, 2, "燃烧器状态",PLC_Common_ValueMaps.coms_ranshaoqi_status));
 

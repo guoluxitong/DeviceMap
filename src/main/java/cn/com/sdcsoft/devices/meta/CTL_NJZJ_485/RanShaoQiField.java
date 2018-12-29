@@ -8,9 +8,8 @@ public class RanShaoQiField extends DeviceField {
     public boolean haveValue(byte... bytes) {
         value = bytes[1] & 0xFF | (bytes[0] & 0xFF) << 8;
 
-        if (0x7FFF != value)
-        {
-            value = bytes[1]&0xFF;
+        if (0x7FFF != value) {
+            value = bytes[1] & 0xFF;
             return true;
         }
         return false;
