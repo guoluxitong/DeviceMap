@@ -2,6 +2,8 @@ package cn.com.sdcsoft.devices.meta.CTL_NJZJ_485;
 
 
 import cn.com.sdcsoft.devices.SdcSoftDevice;
+import cn.com.sdcsoft.devices.entity.Command;
+import cn.com.sdcsoft.devices.entity.IntCommand;
 import cn.com.sdcsoft.devices.meta.DeviceFieldForUI;
 
 /**
@@ -13,4 +15,5 @@ public class SettingField extends MockField {
     public void setDeviceFieldForUIKey(DeviceFieldForUI fieldForUI) {
         fieldForUI.setKey(SdcSoftDevice.KEY_SETTING);
     }
+
 }

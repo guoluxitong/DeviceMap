@@ -1,10 +1,12 @@
 package cn.com.sdcsoft.devices;
 
+import cn.com.sdcsoft.devices.entity.Command;
+import cn.com.sdcsoft.devices.entity.FloatMapCommand;
+import cn.com.sdcsoft.devices.entity.IntCommand;
+import cn.com.sdcsoft.devices.entity.TimeCommand;
 import cn.com.sdcsoft.devices.meta.DeviceFieldForUI;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Device_PLC_DianReShui extends Device_PLC_Dian {
 
@@ -27,5 +29,25 @@ public class Device_PLC_DianReShui extends Device_PLC_Dian {
         return list;
     }
 
+    @Override
+    public Map<String,List<Command>> getCommands(){
+        Map<String, List<Command>> commandsMap =new LinkedHashMap<String, List<Command>>(5);
+        ArrayList<Command> list = new ArrayList<Command>(10);
+        Command cmd = new IntCommand(this);
+        cmd.setName("se_chaowenbaojingsheding");
+        cmd.setMaxValue(90);
+        cmd.setMinValue(30);
+        cmd.setAddress("0502");
 
+        list.add(cmd);
+        commandsMap.put("参数设定",list);
+
+        list = new ArrayList<Command>();
+        cmd = new TimeCommand(this);
+        cmd.setName("se_tingluwendusheding");
+        cmd.setAddress("0580");
+        list.add(cmd);
+        commandsMap.put("启停时间",list);
+        return commandsMap;
+    }
 }

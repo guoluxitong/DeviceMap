@@ -6,4 +6,5 @@ package cn.com.sdcsoft.devices.map.zh_cn;
 
 public class DevicePointMap_CTL_NJZJ_IPK2_485 extends DevicePointMap_CTL_NJZJ_IP_458 {
 
+
 }

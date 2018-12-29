@@ -1,6 +1,5 @@
 package cn.com.sdcsoft.devices.meta.CTL_NJZJ_485;
 
-import java.math.BigInteger;
 
 /**
  * Created by jialiang on 2018/4/19.
@@ -20,4 +19,5 @@ public class BaseInfoField extends cn.com.sdcsoft.devices.meta.BaseInfoField {
             return valueMap.get(value);
         return super.getValueString();
     }
+
 }

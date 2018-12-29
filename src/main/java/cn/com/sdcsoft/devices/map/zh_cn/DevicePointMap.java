@@ -9,6 +9,10 @@ import java.util.HashMap;
 
 public class DevicePointMap extends cn.com.sdcsoft.devices.map.DevicePointMap{
 
+    public  DevicePointMap(){
+        commandsMapKeys.add("系统控制");
+        commandsMapKeys.add("参数设置");
+    }
     static {
         coms_media = new HashMap() {{
             put(0, "热水");

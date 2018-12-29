@@ -15,7 +15,7 @@ public class DevicePointMap_CTL_NJZJ_IP_485 extends DevicePointMap{
 
     public DevicePointMap_CTL_NJZJ_IP_485() {
         //基本信息 010306000028455C
-        map.put(SdcSoftDevice.KEY_POINT_SYSTEM_STATUS, ByteField.Init(new BaseInfoField(), SdcSoftDevice.KEY_POINT_SYSTEM_STATUS, 7, 2, "系统状态", CTL_NJZJ_Common_ValueMaps.coms_status));
+        map.put(SdcSoftDevice.KEY_POINT_SYSTEM_STATUS, ByteField.Init(new SystemStatusField(), SdcSoftDevice.KEY_POINT_SYSTEM_STATUS, 7, 2, "系统状态", CTL_NJZJ_Common_ValueMaps.coms_status));
 
         map.put("ba_yunxingtianshu", ByteField.Init(new RunDaysField(), "ba_yunxingtianshu", 0, 0, "运行天数", "天"));
 

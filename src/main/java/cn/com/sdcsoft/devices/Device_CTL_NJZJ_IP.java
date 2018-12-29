@@ -1,12 +1,9 @@
 package cn.com.sdcsoft.devices;
 
-import cn.com.sdcsoft.devices.entity.Command;
-import cn.com.sdcsoft.devices.entity.Element;
+import cn.com.sdcsoft.devices.entity.*;
 import cn.com.sdcsoft.devices.meta.DeviceFieldForUI;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public abstract class Device_CTL_NJZJ_IP extends Device_CTL {
     private static final String Device_Suffix_Beng = "_beng";
@@ -152,7 +149,7 @@ public abstract class Device_CTL_NJZJ_IP extends Device_CTL {
         } else if (this.powerVal == Power.Mei) {
             return (Integer) getDeviceFields().get(KEY_POINT_YIN_FENG_JI).getValue() > 0x7F ? 1 : 0;
         }
-        return (Integer) getDeviceFields().get(KEY_POINT_RAN_SHAO_QI).getValue();
+        return (Integer) getDeviceFields().get(KEY_POINT_RAN_SHAO_QI).getValue() > 0x7F ? 1 : 0;
     }
 
     @Override
@@ -188,31 +185,85 @@ public abstract class Device_CTL_NJZJ_IP extends Device_CTL {
     }
 
     @Override
-    public List<Command> getCommands() {
+    public Map<String,List<Command>> getCommands() throws Exception {
+        Map<String, List<Command>> commandsMap =new LinkedHashMap<String, List<Command>>(5);
         ArrayList<Command> list = new ArrayList<Command>(10);
-        if(this.powerVal== Power.Dian) {
-            if (this.mediaVal == Media.ReShui) { //电热水
-                list.add(
-                        Command.getInstance(
-                                this,
-                                "se_",
-                                "060500",
-                                Command.INT_VALUE,
-                                50,
-                                300)
-                );
-            }else if(this.mediaVal == Media.ZhenKong){
 
+        if (this.mediaVal == Media.ReShui) {
+            if(this.powerVal== Power.Dian) {
+                Command cmd = new IntCommand(this);
+                cmd.setName("se_tingluwendu");
+                cmd.setMaxValue(90);
+                cmd.setMinValue(30);
+                cmd.setAddress("0502");
+                list.add(cmd);
+
+                cmd = new FloatMapCommand(this);
+                cmd.setName("se_tingluyali");
+                cmd.setMaxValue(0.6);
+                cmd.setMinValue(0.05);
+                cmd.setAddress("050A");
+                list.add(cmd);
+                commandsMap.put("参数设定",list);
+
+                list = new ArrayList<Command>();
+                cmd = new TimeCommand(this);
+                cmd.setName("st_qidongshijian1_shifen_");
+                cmd.setAddress("0580");
+                list.add(cmd);
+                commandsMap.put("启停时间",list);
+                return commandsMap;
             }
-        }else if(this.powerVal == Power.YouQi){
-            if (this.mediaVal == Media.ReShui) { //油气热水
+            if(this.powerVal == Power.YouQi){
+                Command cmd = new IntCommand(this);
+                cmd.setName("se_tingluwendu");
+                cmd.setMaxValue(90);
+                cmd.setMinValue(30);
+                cmd.setAddress("0502");
+                list.add(cmd);
 
+                cmd = new FloatMapCommand(this);
+                cmd.setName("se_tingluyali");
+                cmd.setMaxValue(0.6);
+                cmd.setMinValue(0.05);
+                cmd.setAddress("050A");
+                list.add(cmd);
+                commandsMap.put("参数设定",list);
+
+                list = new ArrayList<Command>();
+                cmd = new TimeCommand(this);
+                cmd.setName("st_qidongshijian1_shifen_");
+                cmd.setAddress("0580");
+                list.add(cmd);
+                commandsMap.put("启停时间",list);
+                return commandsMap;
             }
-        }else if (this.powerVal == Power.Mei){
-            if (this.mediaVal == Media.ReShui) { //燃煤热水
+            if(this.powerVal == Power.Mei){
+                Command cmd = new IntCommand(this);
+                cmd.setName("se_tingluwendu");
+                cmd.setMaxValue(90);
+                cmd.setMinValue(30);
+                cmd.setAddress("0502");
 
+                list.add(cmd);
+
+                cmd = new FloatMapCommand(this);
+                cmd.setName("se_tingluyali");
+                cmd.setMaxValue(0.6);
+                cmd.setMinValue(0.05);
+                cmd.setAddress("050A");
+                list.add(cmd);
+                commandsMap.put("参数设定",list);
+
+                list = new ArrayList<Command>();
+                cmd = new TimeCommand(this);
+                cmd.setName("st_qidongshijian1_shifen_");
+                cmd.setAddress("0580");
+                list.add(cmd);
+                commandsMap.put("启停时间",list);
+                return commandsMap;
             }
         }
-        return list;
+        return commandsMap;
     }
 }

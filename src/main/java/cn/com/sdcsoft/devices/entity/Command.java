@@ -2,133 +2,221 @@ package cn.com.sdcsoft.devices.entity;
 
 import cn.com.sdcsoft.devices.SdcSoftDevice;
 import cn.com.sdcsoft.devices.meta.DeviceFieldForUI;
-import cn.com.sdcsoft.devices.utils.CRC16Util;
+//import groovy.lang.GroovyShell;
+//import groovy.lang.Script;
+//import org.codehaus.groovy.control.CompilerConfiguration;
+import java.io.Serializable;
+import org.jetbrains.annotations.Contract;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Command {
+//extends Script
+
+public abstract class Command implements Serializable {
     /**
      * 时间型Min-Max Value的取值
      */
+
     public static final int INT_VALUE = 1;
     public static final int FLOAT_VALUE = 2;
-    public static final int TIME_VALUE = 3;
+    public static final int FLOAT_MAP_VALUE = 3;
+    public static final int TIME_VALUE = 4;
+    public static final int OPEN_CLOSE_VALUE = 5;
+    public static final int SYSTEM_VALUE = 6;
 
-    private Command(){
+    public Command(){
 
     }
-    private String name, cmdPart,value,unit,title;
-    private int valueType = INT_VALUE,maxValue,minValue;
-    private SdcSoftDevice device;
-
-
-    void setCmdPart(String cmdPart){
-        this.cmdPart = String.format("%02d%s",device.getModbusNo(),cmdPart);
+    public Command(SdcSoftDevice device) {
+        this.device = device;
     }
 
-    public int getValueType(){
-        return valueType;
-    }
-    public int getMaxValue() {
-        return maxValue;
+    protected String name;
+    protected String address;
+    protected String valueString;
+    protected String value;
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
-    void setMaxValue(int maxValue) {
+    protected String unit;
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    protected String title;
+    protected String action = "06";
+    protected int valueType = INT_VALUE;
+    protected boolean valueIsSet = false;
+
+    public void setMaxValue(Object maxValue) {
         this.maxValue = maxValue;
     }
 
-    public int getMinValue() {
-        return minValue;
+    public void setMinValue(Object minValue) {
+        this.minValue = minValue;
     }
 
-    void setMinValue(int minValue) {
-        this.minValue = minValue;
+    protected Object maxValue, minValue;
+    protected SdcSoftDevice device;
+
+    public void setScript(String script) {
+        this.script = script;
+    }
+
+    protected String script;
+
+    // = String.format("%02d%s%s",device.getModbusNo(), action,address)
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public int getValueType() {
+        return valueType;
+    }
+
+    public Object getMaxValue() {
+        return maxValue;
+    }
+
+    public Object getMinValue() {
+        return minValue;
     }
 
     public String getName() {
         return name;
     }
 
-    void setName(String name) {
+    public void setName(String name) {
         this.name = name;
+        //this.title = name;
     }
 
-    public String getValue(){
-        return value;
+    public void initValue(Object... values) {
+        handleValue(values);
     }
 
-    public void setValue(String valueString){
-        if(TIME_VALUE == valueType){
-            String[] strs = valueString.split(":");
-            value = String.format("%04x",Integer.parseInt(strs[0])*60+Integer.parseInt(strs[1]));
-        }else {
-            value = String.format("%04x",Integer.parseInt(valueString));
-        }
-        cmdPart += value;
+    public void setValue(Object... values) throws Exception{
+        if(null == values)
+            return;
+        if(null == values[0])
+            return;
+        handleValue(values);
+        valueIsSet = true;
+    }
+
+    public String getValueString() {
+        return valueString;
     }
 
     private void setFieldsByDeviceUiFields() throws Exception {
-        if(null == device)
+        if (null == device)
             throw new Exception("need to set one instance of SdcSoftDevice for the command");
 
-        HashMap<String,ArrayList<DeviceFieldForUI>> map = device.getFieldMap();
-        for(String key : map.keySet()){
-            for (DeviceFieldForUI ui : map.get(key))
-            {
-                if(ui.getName().equals(this.name)){
+        HashMap<String, ArrayList<DeviceFieldForUI>> map = device.getFieldMap();
+        for (String key : map.keySet()) {
+            for (DeviceFieldForUI ui : map.get(key)) {
+                if (ui.getName().equals(this.name)) {
                     title = ui.getTitle();
                     unit = ui.getUnit();
+                    return;
                 }
             }
         }
     }
 
     public String getTitle() throws Exception {
-        if(null == title || title.length() == 0){
+        if (null == title || title.length() == 0) {
             setFieldsByDeviceUiFields();
         }
         return title;
     }
 
     public String getUnit() throws Exception {
-        if(null == unit || unit.length() == 0){
+        if (null == unit || unit.length() == 0) {
             setFieldsByDeviceUiFields();
         }
-        return title;
+        return unit;
     }
 
-    public String getCommandString(){
-        if(cmdPart.length() != 12)
-            return "";
-        byte[] data = toBytes(cmdPart);
-        return  cmdPart + CRC16Util.getCrc(CRC16Util.calcCrc16(data));
-    }
+    public abstract void handleValue(Object... value);
 
-    private byte[] toBytes(String str) {
-        if(str == null || str.trim().equals("")) {
-            return new byte[0];
+    public abstract String convertToString();
+
+    public String getCommandString() {
+        if (valueIsSet) {
+            valueIsSet = false;
+            String str = convertToString();
+            valueString = "";
+            return str;
         }
-
-        byte[] bytes = new byte[str.length() / 2];
-        for(int i = 0; i < str.length() / 2; i++) {
-            String subStr = str.substring(i * 2, i * 2 + 2);
-            bytes[i] = (byte) Integer.parseInt(subStr, 16);
-        }
-
-        return bytes;
+        return "";
     }
 
-    public static Command getInstance(
-            SdcSoftDevice device, String name, String cmdPart,int valueType, int minValue, int maxValue
-    ){
-        Command command = new Command();
-        command.device = device;
-        command.name = name;
-        command.valueType = valueType;
-        command.minValue = minValue;
-        command.maxValue = maxValue;
-        command.setCmdPart(cmdPart);
-        return command;
+    @Contract("null -> !null")
+    public static byte[] toBytes(String str) {
+        if (str != null && str.length() != 0) {
+            byte[] bytes = new byte[str.length() / 2];
+            for (int i = 0; i < str.length() / 2; i++) {
+                String subStr = str.substring(i * 2, i * 2 + 2);
+                bytes[i] = (byte) Integer.parseInt(subStr, 16);
+            }
+            return bytes;
+        }
+        return new byte[0];
+    }
+
+    public static int hexStringToInteger(String hexString) {
+        return Integer.valueOf(hexString, 16);
+    }
+
+    public static String integerToHexString(int x) {
+        return String.format("%04x", x);
+    }
+
+    public static byte[] intToBytes4(int n) {
+        byte[] b = new byte[4];
+        for (int i = 0; i < 4; i++) {
+            b[i] = (byte) (n >> (24 - i * 8));
+        }
+        return b;
+    }
+
+    //    @Override
+//    public Object run() {
+//        return null;
+//    }
+    private void initCommand(String name, String address, Object maxValue, Object minValue) throws Exception {
+        this.setName(name);
+        this.setAddress(address);
+        this.setMinValue(minValue);
+        this.setMaxValue(maxValue);
+    }
+
+    public void initCommand(String name, String address, Object maxValue, Object minValue, Object value) throws Exception {
+        initCommand(name, address, maxValue, minValue);
+        this.initValue(value);
+    }
+
+    protected Object evalScriptText(String valueString) throws Exception {
+        Object obj = null;
+//        CompilerConfiguration cfg = new CompilerConfiguration();
+//        cfg.setScriptBaseClass(Command.class.getName());
+//        GroovyShell shell = new GroovyShell(cfg);
+//        shell.setVariable("valueString", valueString);
+//        shell.setVariable("result","");
+//
+//
+//        Script script = shell.parse(this.script);
+//        script.run();
+//
+//        obj = shell.getVariable("result");
+//        script = null;
+//        shell = null;
+
+        return obj;
     }
 }

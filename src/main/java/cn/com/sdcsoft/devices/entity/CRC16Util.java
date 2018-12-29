@@ -1,4 +1,4 @@
-package cn.com.sdcsoft.devices.utils;
+package cn.com.sdcsoft.devices.entity;
 
 public class CRC16Util {
     static byte[] crc16_tab_h = {(byte) 0x00, (byte) 0xC1, (byte) 0x81, (byte) 0x40, (byte) 0x01, (byte) 0xC0, (byte) 0x80, (byte) 0x41, (byte) 0x01, (byte) 0xC0, (byte) 0x80, (byte) 0x41, (byte) 0x00, (byte) 0xC1, (byte) 0x81, (byte) 0x40, (byte) 0x01, (byte) 0xC0, (byte) 0x80, (byte) 0x41, (byte) 0x00, (byte) 0xC1, (byte) 0x81, (byte) 0x40, (byte) 0x00, (byte) 0xC1, (byte) 0x81, (byte) 0x40, (byte) 0x01, (byte) 0xC0, (byte) 0x80, (byte) 0x41, (byte) 0x01, (byte) 0xC0, (byte) 0x80, (byte) 0x41, (byte) 0x00, (byte) 0xC1, (byte) 0x81, (byte) 0x40, (byte) 0x00, (byte) 0xC1, (byte) 0x81, (byte) 0x40, (byte) 0x01, (byte) 0xC0, (byte) 0x80, (byte) 0x41, (byte) 0x00, (byte) 0xC1, (byte) 0x81, (byte) 0x40, (byte) 0x01, (byte) 0xC0, (byte) 0x80, (byte) 0x41, (byte) 0x01, (byte) 0xC0,
@@ -58,15 +58,17 @@ public class CRC16Util {
 
     /**
      * 将计算的CRC值 转换为加空格的  比如  ： crc值为 A30A -> A3 0A
+     *
      * @param res
      * @return
      */
     public static String getCrc(int res) {
-        return getCrc(res,false);
+        return getCrc(res, false);
     }
-    public static String getCrc(int res,boolean bigEndian) {
+
+    public static String getCrc(int res, boolean bigEndian) {
         String str = String.format("%04x", res);
-        if(bigEndian)
+        if (bigEndian)
             return str;
 
         String substring = str.substring(0, 2);

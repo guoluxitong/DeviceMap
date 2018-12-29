@@ -8,7 +8,10 @@ import java.util.HashMap;
  */
 
 public class DevicePointMap extends cn.com.sdcsoft.devices.map.DevicePointMap {
-
+    public  DevicePointMap(){
+        commandsMapKeys.add("System Control");
+        commandsMapKeys.add("Parameter Setting");
+    }
     static {
         coms_media = new HashMap() {{
             put(0, "Hot Water");

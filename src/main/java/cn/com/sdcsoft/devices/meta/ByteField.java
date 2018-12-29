@@ -1,6 +1,8 @@
 package cn.com.sdcsoft.devices.meta;
 
 import cn.com.sdcsoft.devices.SdcSoftDevice;
+import cn.com.sdcsoft.devices.entity.Command;
+import cn.com.sdcsoft.devices.entity.IntCommand;
 
 import java.util.HashMap;
 
@@ -17,6 +19,46 @@ public abstract class ByteField {
     protected int bit;
     private boolean needFormat = false;
     protected HashMap<Integer, String> valueMap;
+
+    public String getCommandKey() {
+        return commandKey;
+    }
+
+    public void setCommandKey(String commandKey) {
+        this.commandKey = commandKey;
+    }
+
+    /**
+     * 写命令的Key
+     */
+
+    public Command getCommand() {
+        IntCommand cmd = new IntCommand();
+        cmd.setAddress(this.address);
+        cmd.setMaxValue(this.maxValue);
+        cmd.setMinValue(this.minValue);
+        cmd.initValue(getValue());
+        cmd.setTitle(this.getTitle());
+        cmd.setUnit(this.getUnit());
+        return cmd;
+    }
+
+    protected String commandKey;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    /**
+     * 485内存地址
+     */
+    protected String address;
+
+    protected Object maxValue,minValue;
 
     public boolean isShow() {
         return show;
@@ -108,6 +150,9 @@ public abstract class ByteField {
 //        return String.format("%%s%s", getValue().toString(), getUnit());
 //    }
 
+    protected void setUIKey(){
+
+    }
     public DeviceFieldForUI getDeviceFieldForUI()
     {
         DeviceFieldForUI fieldForUI = new DeviceFieldForUI();
