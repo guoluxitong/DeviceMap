@@ -4,6 +4,9 @@ package cn.com.sdcsoft.devices.map.zh_cn;
 import cn.com.sdcsoft.devices.SdcSoftDevice;
 import cn.com.sdcsoft.devices.meta.ByteField;
 import cn.com.sdcsoft.devices.meta.CTL_NJRT.*;
+import cn.com.sdcsoft.devices.meta.CountField;
+import cn.com.sdcsoft.devices.meta.CountShowField;
+import cn.com.sdcsoft.devices.meta.FixedValueField;
 
 import static cn.com.sdcsoft.devices.map.zh_cn.DevicePointMap.CTL_NJRT_Common_ValueMaps.*;
 
@@ -18,16 +21,16 @@ public class DevicePointMap_CTL_NJRT_T2 extends DevicePointMap {
 
     public DevicePointMap_CTL_NJRT_T2() {
 
-        map.put("_ranshaoqi", ByteField.Init(new BaseInfoField(), "_ranshaoqi", 0, 0, "燃烧器", false));
-        map.put("_addshuibeng", ByteField.Init(new BaseInfoField(), "_addshuibeng", 0, 0, "给水泵", false));
-        map.put("_lengningbeng", ByteField.Init(new BaseInfoField(), "_lengningbeng", 0, 0, "冷凝泵", false));
+        map.put("_ranshaoqi", ByteField.Init(new CountField(), "_ranshaoqi",  "燃烧器"));
+        map.put("_addshuibeng", ByteField.Init(new CountField(), "_addshuibeng",  "给水泵"));
+        map.put("_lengningbeng", ByteField.Init(new CountField(), "_lengningbeng", "冷凝泵"));
 
         map.put(SdcSoftDevice.KEY_POINT_SYSTEM_STATUS, ByteField.Init(new BaseInfoField(), SdcSoftDevice.KEY_POINT_SYSTEM_STATUS, 3, 2, "系统状态", coms_status));
         map.put(SdcSoftDevice.KEY_POINT_RUN_LIFE, ByteField.Init(new BaseInfoField(), SdcSoftDevice.KEY_POINT_RUN_LIFE, 53, 2, "运行时间"));
-        map.put(SdcSoftDevice.KEY_POINT_RUN_DAYS, ByteField.Init(new BaseInfoField(), SdcSoftDevice.KEY_POINT_RUN_DAYS, 0, 0, "运行天数", "天"));
-        map.put(SdcSoftDevice.KEY_POINT_RUN_HOURS, ByteField.Init(new BaseInfoField(), SdcSoftDevice.KEY_POINT_RUN_HOURS, 0, 0, "运行小时数", "时"));
-        map.put(SdcSoftDevice.KEY_POINT_POWER, ByteField.Init(new PowerField(), SdcSoftDevice.KEY_POINT_POWER, 87, 2, "燃料类型", coms_power));
-        map.put(SdcSoftDevice.KEY_POINT_MEDIA, ByteField.Init(new MediaField(), SdcSoftDevice.KEY_POINT_MEDIA, 89, 2, "介质类型", coms_media));
+        map.put(SdcSoftDevice.KEY_POINT_RUN_DAYS, ByteField.Init(KEY_BASE,new CountShowField(), SdcSoftDevice.KEY_POINT_RUN_DAYS, "运行天数", "天"));
+        map.put(SdcSoftDevice.KEY_POINT_RUN_HOURS, ByteField.Init(KEY_BASE,new CountShowField(), SdcSoftDevice.KEY_POINT_RUN_HOURS, "运行小时数", "时"));
+        map.put(SdcSoftDevice.KEY_POINT_POWER, ByteField.Init(new BaseInfoField(), SdcSoftDevice.KEY_POINT_POWER, 87, 2, "燃料类型", coms_power));
+        map.put(SdcSoftDevice.KEY_POINT_MEDIA, ByteField.Init(new BaseInfoField(), SdcSoftDevice.KEY_POINT_MEDIA, 89, 2, "介质类型", coms_media));
 
         map.put("oc_ranshaoqiqitingkongzhi", ByteField.Init(new OpenCloseField(), "oc_ranshaoqiqitingkongzhi", 9, 2, "燃烧器启停控制", 0, coms_start_stop));
         map.put("oc_ranshaoqifuhetiaojie", ByteField.Init(new OpenCloseField(), "oc_ranshaoqifuhetiaojie", 9, 2, "燃烧器负荷调节", 1, coms_start_stop));

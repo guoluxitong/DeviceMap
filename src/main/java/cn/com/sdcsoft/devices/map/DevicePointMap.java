@@ -1,9 +1,11 @@
 package cn.com.sdcsoft.devices.map;
 
 import cn.com.sdcsoft.devices.meta.ByteField;
+import cn.com.sdcsoft.devices.meta.CommandField;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 
@@ -36,8 +38,12 @@ public abstract class DevicePointMap {
     protected HashMap<String, ByteField> map = new HashMap();
     protected List<String> commandsMapKeys = new ArrayList<String>();
 
+    protected LinkedHashMap<String,ArrayList<CommandField>> commandsMap = new LinkedHashMap<String, ArrayList<CommandField>>();
     public HashMap<String, ByteField> getPointMap() {
         return map;
+    }
+    public HashMap<String, ArrayList<CommandField>> getCommandsMap() {
+        return commandsMap;
     }
 
     public Object[] getCommandsMapKeys() {

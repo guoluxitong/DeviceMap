@@ -9,42 +9,12 @@ import java.util.HashMap;
 /**
  * Created by jialiang on 2018/4/19.
  */
-
-public abstract class ByteField {
-
-    private String name;
-    private String unit;
-    private String title;
+public abstract class ByteField extends CommandField{
     protected int startIndex;
     private int bytesLength, baseNumber;
     protected int bit;
     private boolean needFormat = false;
     protected HashMap<Integer, String> valueMap;
-
-    public String getCommandKey() {
-        return commandKey;
-    }
-
-    public void setCommandKey(String commandKey) {
-        this.commandKey = commandKey;
-    }
-
-    /**
-     * 写命令的Key
-     */
-
-    public Command getCommand() {
-        IntCommand cmd = new IntCommand();
-        cmd.setAddress(this.address);
-        cmd.setMaxValue(this.maxValue);
-        cmd.setMinValue(this.minValue);
-        cmd.initValue(getValue());
-        cmd.setTitle(this.getTitle());
-        cmd.setUnit(this.getUnit());
-        return cmd;
-    }
-
-    protected String commandKey;
 
     public String getAddress() {
         return address;
@@ -61,6 +31,7 @@ public abstract class ByteField {
 
     protected Object maxValue,minValue;
 
+    /**
     public boolean isShow() {
         return show;
     }
@@ -71,30 +42,7 @@ public abstract class ByteField {
 
     protected boolean show = true;
 
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getUnit() {
-        return null == unit ? "" : unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
+**/
 
     public int getStartIndex() {
         return startIndex;
@@ -132,6 +80,13 @@ public abstract class ByteField {
 
     public abstract Object getValue();
 
+    @Override
+    protected Command createCommandAndInitValue() {
+        IntCommand cmd = new IntCommand();
+        cmd.initValue(getValue());
+        return cmd;
+    }
+
     public String getValueBitString(){
         return String.format("%d",getValue());
     }
@@ -159,10 +114,14 @@ public abstract class ByteField {
         fieldForUI.setUnit(getUnit());
         return fieldForUI;
     }
-
-    /// <summary>
-    /// 添加计算并显示的点位
-    /// </summary>
+    /**
+     * 添加计算并显示的点位
+     * @param groupKey 点位分组Key
+     * @param field
+     * @param name
+     * @param title
+     * @return
+     */
     public static ByteField Init(@NotNull String groupKey, CountShowField field, String name, String title)
     {
         field.setName(name);
@@ -177,9 +136,13 @@ public abstract class ByteField {
         return field;
     }
 
-    /// <summary>
-    /// 添加计算不显示的点位
-    /// </summary>
+    /**
+     * 添加计算不显示的点位
+     * @param field
+     * @param name
+     * @param title
+     * @return
+     */
     public static ByteField Init(CountField field, String name, String title)
     {
         field.setName(name);
@@ -187,9 +150,15 @@ public abstract class ByteField {
         return field;
     }
 
-    /// <summary>
-    /// 添加计算不显示的点位
-    /// </summary>
+    /**
+     * 添加固定值点位
+     * @param field
+     * @param name
+     * @param title
+     * @param value
+     * @param valueMap
+     * @return
+     */
     public static ByteField Init(FixedValueField field, String name, String title,int value, HashMap<Integer, String> valueMap)
     {
         field.setName(name);
@@ -199,10 +168,15 @@ public abstract class ByteField {
         return field;
     }
 
-
-    /// <summary>
-    /// 添加显示点位
-    /// </summary>
+    /**
+     * 添加普通显示点位
+     * @param field
+     * @param name
+     * @param startIndex
+     * @param bytesLength
+     * @param title
+     * @return
+     */
     public static ByteField Init(ByteField field, String name, int startIndex, int bytesLength, String title)
     {
         field.setName(name);
@@ -218,12 +192,31 @@ public abstract class ByteField {
         return field;
     }
 
+    private static void initCommandInfo(ByteField field,String cmdGroupKey,String address,Object minValue,Object maxValue){
+        field.setCommandGroupKey(cmdGroupKey);
+        field.setAddress(address);
+        field.setMinValue(minValue);
+        field.setMaxValue(maxValue);
+    }
+
+    public static ByteField Init(ByteField field, String name, int startIndex, int bytesLength, String title, HashMap<Integer, String> valueMap,
+    String cmdGroupKey,String address,Object minValue,Object maxValue) {
+        Init(field, name, startIndex, bytesLength, title,valueMap);
+        initCommandInfo(field,cmdGroupKey,address,minValue,maxValue);
+        return field;
+    }
+
     public static ByteField Init(ByteField field, String name, int startIndex, int bytesLength, String title, String unit) {
         Init(field, name, startIndex, bytesLength, title);
         field.setUnit(unit);
         return field;
     }
-
+    public static ByteField Init(ByteField field, String name, int startIndex, int bytesLength, String title, String unit,
+                                 String cmdGroupKey, String address,Object minValue,Object maxValue) {
+        Init(field, name, startIndex, bytesLength, title,unit);
+        initCommandInfo(field,cmdGroupKey,address,minValue,maxValue);
+        return field;
+    }
     public static ByteField Init(ByteField field, String name, int startIndex, int bytesLength, String title, int bit) {
         Init(field, name, startIndex, bytesLength, title);
         field.setBit(bit);
@@ -233,6 +226,13 @@ public abstract class ByteField {
     public static ByteField Init(ByteField field, String name, int startIndex, int bytesLength, String title, int bit, HashMap<Integer, String> valueMap) {
         Init(field, name, startIndex, bytesLength, title,bit);
         field.setValueMap(valueMap);
+        return field;
+    }
+
+    public static ByteField Init(ByteField field, String name, int startIndex, int bytesLength, String title, int bit, HashMap<Integer, String> valueMap,
+                                String cmdGroupKey, String address,Object minValue,Object maxValue) {
+        Init(field, name, startIndex, bytesLength, title,bit,valueMap);
+        initCommandInfo(field,cmdGroupKey,address,minValue,maxValue);
         return field;
     }
 

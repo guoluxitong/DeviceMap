@@ -54,11 +54,6 @@ public abstract class Device_PLC extends SdcSoftDevice {
     public void handleByteField(ByteField field, byte[] bytes) {
         switch (field.getBytesLength()) {
             case 0:
-                if(field.haveValue(bytes[field.getStartIndex()], bytes[field.getStartIndex() + 1]))
-                {
-                    this.AddField(field.getDeviceFieldForUI());
-                }
-                break;
             case 2:
                 if (field.haveValue(bytes[field.getStartIndex()], bytes[field.getStartIndex() + 1])) {
                     this.AddField(field.getDeviceFieldForUI());

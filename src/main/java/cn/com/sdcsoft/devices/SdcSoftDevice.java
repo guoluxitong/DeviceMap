@@ -9,6 +9,8 @@ import cn.com.sdcsoft.devices.meta.DeviceFieldForUI;
 import java.io.Serializable;
 import java.util.*;
 
+import static cn.com.sdcsoft.devices.map.DevicePointMap.*;
+
 /**
  * Created by jialiang on 2018/4/19.
  * 锅炉设备必需要有燃料和介质两个点位，这两个点位并不需要在byte[]中
@@ -24,18 +26,18 @@ public abstract class SdcSoftDevice implements Serializable {
     public static final String KEY_POINT_RUN_HOURS = "ba_yunxingxiaoshishu";
 
 
-    public static final String KEY_BASE = "baseInfo";
-    public static final String KEY_RUN = "runInfo";
-    public static final String KEY_EXCEPTION = "exceptionInfo";
-    public static final String KEY_MOCK = "mockInfo";
-    public static final String KEY_SETTING = "settingInfo";
-    public static final String KEY_START_STOP = "startStopInfo";
-    public static final String KEY_DEVICE = "deviceInfo";
-    public static final String KEY_OPEN_CLOSE = "openclose";
-    /**
-     * 计算属性的KEY
-     */
-    public static final String KEY_Count_Fields = "countfields";
+//    public static final String KEY_BASE = "baseInfo";
+//    public static final String KEY_RUN = "runInfo";
+//    public static final String KEY_EXCEPTION = "exceptionInfo";
+//    public static final String KEY_MOCK = "mockInfo";
+//    public static final String KEY_SETTING = "settingInfo";
+//    public static final String KEY_START_STOP = "startStopInfo";
+//    public static final String KEY_DEVICE = "deviceInfo";
+//    public static final String KEY_OPEN_CLOSE = "openclose";
+//    /**
+//     * 计算属性的KEY
+//     */
+//    public static final String KEY_Count_Fields = "countfields";
 
     public static final int Style_Horizontal = 0;
     public static final int Style_Vertical = 1;
@@ -77,6 +79,9 @@ public abstract class SdcSoftDevice implements Serializable {
         this.modbusNo = modbusNo;
     }
 
+    /**
+     * Modbus 设备编号
+     */
     private int modbusNo = 1;
 
     /**
@@ -106,16 +111,18 @@ public abstract class SdcSoftDevice implements Serializable {
 
     protected void AddField(ByteField field) {
         AddField(field.getDeviceFieldForUI());
-        if(null != field.getCommandKey() && field.getCommandKey().length()>0){
-            if(!commandsMap.containsKey(field.getCommandKey())){
-                commandsMap.put(field.getCommandKey(),new ArrayList<Command>(10));
+        //处理保护执行命令的点位
+        if(null != field.getCommandGroupKey() && field.getCommandGroupKey().length()>0){
+            if(!commandsMap.containsKey(field.getCommandGroupKey())){
+                commandsMap.put(field.getCommandGroupKey(),new ArrayList<Command>(10));
             }
-            commandsMap.get(field.getCommandKey()).add(field.getCommand());
+            commandsMap.get(field.getCommandGroupKey()).add(field.getCommand());
         }
     }
 
 
     protected void AddField(DeviceFieldForUI field) {
+        //需要剔除纯控制程序点位
         if (fieldMap.containsKey(field.getKey()))
             fieldMap.get(field.getKey()).add(field);
     }

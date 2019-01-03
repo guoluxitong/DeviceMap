@@ -1,9 +1,6 @@
 package cn.com.sdcsoft.devices.meta.CTL_NJZJ_485;
 
-
 import cn.com.sdcsoft.devices.SdcSoftDevice;
-import cn.com.sdcsoft.devices.entity.Command;
-import cn.com.sdcsoft.devices.entity.IntCommand;
 import cn.com.sdcsoft.devices.meta.DeviceFieldForUI;
 
 /**

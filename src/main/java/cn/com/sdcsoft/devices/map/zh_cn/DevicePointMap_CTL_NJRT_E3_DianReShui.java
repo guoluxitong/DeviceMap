@@ -9,6 +9,7 @@ import cn.com.sdcsoft.devices.meta.CTL_NJRT.MockField;
 import cn.com.sdcsoft.devices.meta.CTL_NJRT.OpenCloseField;
 import cn.com.sdcsoft.devices.meta.CountField;
 import cn.com.sdcsoft.devices.meta.CountShowField;
+import cn.com.sdcsoft.devices.meta.FixedValueField;
 
 /**
  * Created by jialiang on 2018/4/20.
@@ -22,8 +23,8 @@ public class DevicePointMap_CTL_NJRT_E3_DianReShui extends DevicePointMap {
         /**
          * 计算属性（不显示）
          */
-        map.put("_jiarezu", ByteField.Init(new CountField(), "_jiarezu", 0, 0, "加热组"));
-        map.put("_addshuibeng", ByteField.Init(new CountField(), "_addshuibeng", 0, 0, "给水泵"));
+        map.put("_jiarezu", ByteField.Init(new CountField(), "_jiarezu", "加热组"));
+        map.put("_addshuibeng", ByteField.Init(new CountField(), "_addshuibeng", "给水泵"));
 
         map.put(KEY_POINT_SYSTEM_STATUS, ByteField.Init(new BaseInfoField(), KEY_POINT_SYSTEM_STATUS, 3, 2, "系统状态", CTL_NJRT_Common_ValueMaps.coms_status));
 
@@ -33,9 +34,9 @@ public class DevicePointMap_CTL_NJRT_E3_DianReShui extends DevicePointMap {
 
         map.put(KEY_POINT_RUN_HOURS, ByteField.Init(KEY_BASE, new CountShowField(), KEY_POINT_RUN_HOURS,"运行小时数", "时"));
 
-        map.put(KEY_POINT_POWER, ByteField.Init(new cn.com.sdcsoft.devices.meta.CTL_NJRT.e3.PowerField(), KEY_POINT_POWER, 1, 0, "燃料类型", DevicePointMap.coms_power));
+        map.put(KEY_POINT_POWER, ByteField.Init(new FixedValueField(), KEY_POINT_POWER,"燃料类型", 1,DevicePointMap.coms_power));
 
-        map.put(KEY_POINT_MEDIA, ByteField.Init(new cn.com.sdcsoft.devices.meta.CTL_NJRT.e3.MediaField(), KEY_POINT_MEDIA, 0, 0, "介质类型", DevicePointMap.coms_media));
+        map.put(KEY_POINT_MEDIA, ByteField.Init(new FixedValueField(), KEY_POINT_MEDIA,  "介质类型",0, DevicePointMap.coms_media));
 
 
         map.put("oc_jixiandishuiweidianji", ByteField.Init(new OpenCloseField(), "oc_jixiandishuiweidianji", 4, 2, "极限低水位电极", 0, coms_open_close));

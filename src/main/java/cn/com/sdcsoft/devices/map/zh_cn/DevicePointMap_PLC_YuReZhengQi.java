@@ -2,6 +2,8 @@ package cn.com.sdcsoft.devices.map.zh_cn;
 
 import cn.com.sdcsoft.devices.SdcSoftDevice;
 import cn.com.sdcsoft.devices.meta.ByteField;
+import cn.com.sdcsoft.devices.meta.CountField;
+import cn.com.sdcsoft.devices.meta.FixedValueField;
 import cn.com.sdcsoft.devices.meta.PLC.*;
 import cn.com.sdcsoft.devices.meta.PLC.yure.SystemStatusField;
 
@@ -17,14 +19,14 @@ public class DevicePointMap_PLC_YuReZhengQi extends DevicePointMap {
         /**
          * 计算属性（不显示）
          */
-        map.put("_addshuibeng", ByteField.Init(new DeviceField(), "_addshuibeng", 0, 0, "给水泵", false));
-        map.put("_chuanyangbeng", ByteField.Init(new DeviceField(), "_chuanyangbeng", 0, 0, "除氧泵", false));
+        map.put("_addshuibeng", ByteField.Init(new CountField(), "_addshuibeng", "给水泵"));
+        map.put("_chuanyangbeng", ByteField.Init(new CountField(), "_chuanyangbeng", "除氧泵"));
 
         map.put(SdcSoftDevice.KEY_POINT_RUN_HOURS, ByteField.Init(new BaseInfoField(), SdcSoftDevice.KEY_POINT_RUN_HOURS, 9, 2, "运行小时数", "时"));
         map.put(SdcSoftDevice.KEY_POINT_RUN_DAYS, ByteField.Init(new BaseInfoField(), SdcSoftDevice.KEY_POINT_RUN_DAYS, 11, 2, "运行天数", "天"));
         map.put(SdcSoftDevice.KEY_POINT_SYSTEM_STATUS, ByteField.Init(new SystemStatusField(), SdcSoftDevice.KEY_POINT_SYSTEM_STATUS, 1, 0, "系统状态",PLC_Common_ValueMaps.coms_status));
-        map.put(SdcSoftDevice.KEY_POINT_POWER, ByteField.Init(new PowerField(), SdcSoftDevice.KEY_POINT_POWER, 30, 0, "燃料",DevicePointMap.coms_power));
-        map.put(SdcSoftDevice.KEY_POINT_MEDIA, ByteField.Init(new MediaField(), SdcSoftDevice.KEY_POINT_MEDIA, 1, 0, "介质",DevicePointMap.coms_media));
+        map.put(SdcSoftDevice.KEY_POINT_POWER, ByteField.Init(new FixedValueField(), SdcSoftDevice.KEY_POINT_POWER, "燃料",30,DevicePointMap.coms_power));
+        map.put(SdcSoftDevice.KEY_POINT_MEDIA, ByteField.Init(new FixedValueField(), SdcSoftDevice.KEY_POINT_MEDIA, "介质",1,DevicePointMap.coms_media));
         map.put("ba_shuiweizhuangtai", ByteField.Init(new BaseInfoField(), "ba_shuiweizhuangtai", 19, 2, "水位状态",DevicePointMap.coms_level));
         map.put("ba_ranshaoqizhuangtai", ByteField.Init(new BaseInfoField(), "ba_ranshaoqizhuangtai", 21, 2, "燃烧器状态",PLC_Common_ValueMaps.coms_ranshaoqi_status));
 
