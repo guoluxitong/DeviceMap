@@ -56,12 +56,12 @@ public abstract class Device_PLC extends SdcSoftDevice {
             case 0:
             case 2:
                 if (field.haveValue(bytes[field.getStartIndex()], bytes[field.getStartIndex() + 1])) {
-                    this.AddField(field.getDeviceFieldForUI());
+                    this.addField(field);
                 }
                 break;
             case 4:
                 if (field.haveValue(bytes[field.getStartIndex()], bytes[field.getStartIndex() + 1], bytes[field.getStartIndex() + 2], bytes[field.getStartIndex() + 3])) {
-                    this.AddField(field.getDeviceFieldForUI());
+                    this.addField(field);
                 }
                 break;
         }

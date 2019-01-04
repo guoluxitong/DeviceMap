@@ -184,7 +184,7 @@ public abstract class Device_CTL_NJZJ_IP extends Device_CTL {
         return list;
     }
 
-    @Override
+  /**
     public Map<String,List<Command>> getCommands() throws Exception {
         Map<String, List<Command>> commandsMap =new LinkedHashMap<String, List<Command>>(5);
         ArrayList<Command> list = new ArrayList<Command>(10);
@@ -266,4 +266,5 @@ public abstract class Device_CTL_NJZJ_IP extends Device_CTL {
         }
         return commandsMap;
     }
+   **/
 }

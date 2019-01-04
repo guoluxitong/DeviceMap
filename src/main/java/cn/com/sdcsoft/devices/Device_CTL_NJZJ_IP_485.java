@@ -20,7 +20,7 @@ public abstract class Device_CTL_NJZJ_IP_485 extends Device_CTL_NJZJ_IP {
     public void handleByteField(ByteField field, byte[] bytes) {
 
         if (field.haveValue(bytes[field.getStartIndex()], bytes[field.getStartIndex()+1])) {
-            this.AddField(field.getDeviceFieldForUI());
+            this.addField(field);
         }
     }
     @Override

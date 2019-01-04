@@ -24,7 +24,7 @@ public abstract class Device_CTL_NJRT_E3_Dian extends Device_CTL {
     @Override
     public void handleByteField(ByteField field, byte[] bytes) {
         if (field.haveValue(bytes[field.getStartIndex()], bytes[field.getStartIndex()+1])) {
-            this.AddField(field.getDeviceFieldForUI());
+            this.addField(field);
         }
     }
     @Override

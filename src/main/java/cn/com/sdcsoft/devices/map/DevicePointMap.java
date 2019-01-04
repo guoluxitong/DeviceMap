@@ -1,12 +1,10 @@
 package cn.com.sdcsoft.devices.map;
 
+import cn.com.sdcsoft.devices.entity.Command;
 import cn.com.sdcsoft.devices.meta.ByteField;
 import cn.com.sdcsoft.devices.meta.CommandField;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -35,20 +33,29 @@ public abstract class DevicePointMap {
     public static final String KEY_POINT_RUN_HOURS = "ba_yunxingxiaoshishu";
 
 
-    protected HashMap<String, ByteField> map = new HashMap();
-    protected List<String> commandsMapKeys = new ArrayList<String>();
+    protected HashMap<String, ByteField> map = new HashMap<String, ByteField>();
 
     protected LinkedHashMap<String,ArrayList<CommandField>> commandsMap = new LinkedHashMap<String, ArrayList<CommandField>>();
     public HashMap<String, ByteField> getPointMap() {
         return map;
     }
-    public HashMap<String, ArrayList<CommandField>> getCommandsMap() {
-        return commandsMap;
+    public Map<String, ArrayList<Command>> getCommandsMap() {
+        LinkedHashMap<String,ArrayList<Command>> tempMap = new LinkedHashMap<String, ArrayList<Command>>(commandsMap.size());
+        for(String key: commandsMap.keySet()){
+            ArrayList<Command> list = null;
+            if(null != commandsMap.get(key)){
+                list = new ArrayList<Command>(commandsMap.get(key).size());
+                for(CommandField field : commandsMap.get(key)){
+                    list.add(field.getCommand());
+                }
+            }else {
+                list = new ArrayList<Command>(10);
+            }
+            tempMap.put(key,list);
+        }
+        return tempMap;
     }
 
-    public Object[] getCommandsMapKeys() {
-        return commandsMapKeys.toArray();
-    }
 
     public static HashMap<Integer, String> coms_media ;
     public static HashMap<Integer, String> coms_power ;

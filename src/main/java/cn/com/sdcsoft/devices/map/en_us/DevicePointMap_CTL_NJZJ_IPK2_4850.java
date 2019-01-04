@@ -20,9 +20,9 @@ public class DevicePointMap_CTL_NJZJ_IPK2_4850 extends DevicePointMap {
 
         map.put("ba_yunxingxiaoshishu", ByteField.Init(new BaseInfoField(), "ba_yunxingxiaoshishu", 0, 0, "Running Hours", "时"));
 
-        map.put(SdcSoftDevice.KEY_POINT_POWER, ByteField.Init(new PowerField(), SdcSoftDevice.KEY_POINT_POWER, 3, 2, "Fuel Type", coms_power));
+        map.put(SdcSoftDevice.KEY_POINT_POWER, ByteField.Init(new BaseInfoField(), SdcSoftDevice.KEY_POINT_POWER, 3, 2, "Fuel Type", coms_power));
 
-        map.put(SdcSoftDevice.KEY_POINT_MEDIA, ByteField.Init(new MediaField(), SdcSoftDevice.KEY_POINT_MEDIA, 5, 2, "Medium Type", coms_media));
+        map.put(SdcSoftDevice.KEY_POINT_MEDIA, ByteField.Init(new BaseInfoField(), SdcSoftDevice.KEY_POINT_MEDIA, 5, 2, "Medium Type", coms_media));
 
         map.put("ba_guolushuiweizhuangtai", ByteField.Init(new BaseInfoField(), "ba_guolushuiweizhuangtai", 25, 2, "Boiler Water Level State", coms_level));
 

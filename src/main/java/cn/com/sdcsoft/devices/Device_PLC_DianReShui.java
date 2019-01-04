@@ -28,26 +28,4 @@ public class Device_PLC_DianReShui extends Device_PLC_Dian {
 
         return list;
     }
-
-    @Override
-    public Map<String,List<Command>> getCommands(){
-        Map<String, List<Command>> commandsMap =new LinkedHashMap<String, List<Command>>(5);
-        ArrayList<Command> list = new ArrayList<Command>(10);
-        Command cmd = new IntCommand(this);
-        cmd.setName("se_chaowenbaojingsheding");
-        cmd.setMaxValue(90);
-        cmd.setMinValue(30);
-        cmd.setAddress("0502");
-
-        list.add(cmd);
-        commandsMap.put("参数设定",list);
-
-        list = new ArrayList<Command>();
-        cmd = new TimeCommand(this);
-        cmd.setName("se_tingluwendusheding");
-        cmd.setAddress("0580");
-        list.add(cmd);
-        commandsMap.put("启停时间",list);
-        return commandsMap;
-    }
 }
