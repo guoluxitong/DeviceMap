@@ -114,6 +114,19 @@ public abstract class ByteField extends CommandField{
         fieldForUI.setUnit(getUnit());
         return fieldForUI;
     }
+
+    public DeviceFieldForUI getDeviceFieldForUI(Object value)
+    {
+        DeviceFieldForUI fieldForUI = new DeviceFieldForUI();
+        setDeviceFieldForUIKey(fieldForUI);
+        fieldForUI.setName(getName());
+        fieldForUI.setTitle(getTitle());
+        fieldForUI.setValue(value);
+        fieldForUI.setValueString(getValueString());
+        fieldForUI.setNeedFormat(needFormat);
+        fieldForUI.setUnit(getUnit());
+        return fieldForUI;
+    }
     /**
      * 添加计算并显示的点位
      * @param groupKey 点位分组Key

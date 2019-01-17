@@ -5,10 +5,6 @@ import cn.com.sdcsoft.devices.SdcSoftDevice;
 
 public class TimeCommand extends IntCommand {
     public TimeCommand() {
-
-    }
-    public TimeCommand(SdcSoftDevice device) {
-        super(device);
         this.valueType = Command.TIME_VALUE;
         this.script = "strs = valueString.split(':');" +
                 "reslut = integerToHexString(strs[0].toInteger()*60+strs[1].toInteger());";

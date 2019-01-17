@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by 田斌 on 2018/12/10 0010.
  */
-public abstract class Device_CTL_NJRT_H1_RanYou extends Device_CTL{
+public abstract class Device_CTL_RT_H1_RY extends Device_CTL{
     public static final String KEY_POINT_RAN_SHAO_QI = "_ranshaoqi";
     public static final String KEY_POINT_RAN_SHAO_QI_KONGZHI = "oc_ranshaoqiqitingkongzhi";
     public static final String KEY_POINT_RAN_SHAO_QI_STATUS = "oc_ranshaoqifuhetiaojie";
@@ -20,6 +20,11 @@ public abstract class Device_CTL_NJRT_H1_RanYou extends Device_CTL{
     public static final String KEY_POINT_Add_SHUI_BENG = "_addshuibeng";
     public static final String KEY_POINT_Add_SHUI_BENG_1 = "oc_1_addshuibeng_start_stop";
     public static final String KEY_POINT_Add_SHUI_BENG_2 = "oc_2_addshuibeng_start_stop";
+
+    public static final String KEY_POINT_XUN_HUAN_BENG = "_xunhuanbeng";
+    public static final String KEY_POINT_XUN_HUAN_BENG_1 = "oc_1_xunhuanbeng_start_stop";
+    public static final String KEY_POINT_XUN_HUAN_BENG_2 = "oc_2_xunhuanbeng_start_stop";
+    public static final String KEY_POINT_XUN_HUAN_BENG_3 = "oc_3_xunhuanbeng_start_stop";
 
     @Override
     public void handleByteField(ByteField field, byte[] bytes) {
@@ -29,10 +34,6 @@ public abstract class Device_CTL_NJRT_H1_RanYou extends Device_CTL{
     }
     @Override
     public String handleDeviceNo(byte[] bytes) {
-        /*String deviceNo = String.format("%d%d%d%d%d%d%d%d%d%d",
-                bytes[68],bytes[70],bytes[72],bytes[74],bytes[76],
-                bytes[78],bytes[80],bytes[82],bytes[84],bytes[86]);
-        setDeviceNo(deviceNo);*/
         return "";
     }
 
@@ -48,6 +49,9 @@ public abstract class Device_CTL_NJRT_H1_RanYou extends Device_CTL{
         field.setValue(i%24);
         list.add(field);
         list.add(getUiItem(this.getMockFields(),"mo_shuiweixinhao"));
+
+
+
         return list;
     }
 
@@ -57,19 +61,21 @@ public abstract class Device_CTL_NJRT_H1_RanYou extends Device_CTL{
     }
 
     protected int getPowerInfo() {
-        Integer integer = (Integer)getOpenCloseFields().get(KEY_POINT_RAN_SHAO_QI_KONGZHI).getValue();
+        Integer integer = (Integer)getDeviceFields().get(KEY_POINT_RAN_SHAO_QI_KONGZHI).getValue();
         if (integer > 0){
             try {
-                HashMap map = getOpenCloseFields();
-                Integer i = (Integer)getOpenCloseFields().get(KEY_POINT_RAN_SHAO_QI_STATUS).getValue();
-                return (Integer)getOpenCloseFields().get(KEY_POINT_RAN_SHAO_QI_STATUS).getValue();
+                //               HashMap<String,DeviceFieldForUI> map = getCountFields();
+//                DeviceFieldForUI ui = map.get(KEY_POINT_RAN_SHAO_QI_STATUS);
+//                map = getOpenCloseFields();
+//                int i = (Integer)map.get("oc_ranshaoqibilijianda").getValue();
+//                ui.setValue(i>0?i:map.get("oc_ranshaoqibilijianxiao").getValue());
+
+                HashMap<String,DeviceFieldForUI> map = getOpenCloseFields();
+                return ((Integer)map.get("oc_ranshaoqibilijianda").getValue())>0?1:0;
             }catch (Exception e){
                 e.printStackTrace();
             }
-
         }
-
-
         return 0;
     }
 
@@ -93,6 +99,46 @@ public abstract class Device_CTL_NJRT_H1_RanYou extends Device_CTL{
             if (getDeviceFields().containsKey(KEY_POINT_Add_SHUI_BENG_2))
             {
                 d2 = getDeviceFields().get(KEY_POINT_Add_SHUI_BENG_2);
+                count += 2;
+            }
+            int v1 = 0, v2 = 0;
+            switch (count)
+            {
+                case 1:
+                    v1 = (Integer) d1.getValue() > 0 ? 1 : 0;
+                    element.SetValues(Element.Index_Beng_Count, 1, v1);
+                    list.add(element);
+                    break;
+                case 2:
+                    v2 = (Integer)d2.getValue() > 0 ? 1 : 0;
+                    element.SetValues(Element.Index_Beng_Count, 1, v2);
+                    list.add(element);
+                    break;
+                case 3:
+                    v1 = (Integer)d1.getValue() > 0 ? 1 : 0;
+                    v2 = (Integer)d2.getValue() > 0 ? 2 : 0;
+                    element.SetValues(Element.Index_Beng_Count, 2, v1 + v2);
+                    list.add(element);
+                    break;
+            }
+        }
+        if (getCountFields().containsKey(KEY_POINT_XUN_HUAN_BENG))
+        {
+            DeviceFieldForUI deviceFieldForUI = getCountFields().get(KEY_POINT_XUN_HUAN_BENG);
+            Element element = new Element();
+            element.setTitle(deviceFieldForUI.getTitle());
+            element.setPrefix(Element.Prefix_Beng);
+
+            DeviceFieldForUI d1 = null, d2 = null;
+            int count = 0;
+            if (getDeviceFields().containsKey(KEY_POINT_XUN_HUAN_BENG_1))
+            {
+                d1 = getDeviceFields().get(KEY_POINT_XUN_HUAN_BENG_1);
+                count = 1;
+            }
+            if (getDeviceFields().containsKey(KEY_POINT_XUN_HUAN_BENG_2))
+            {
+                d2 = getDeviceFields().get(KEY_POINT_XUN_HUAN_BENG_2);
                 count += 2;
             }
             int v1 = 0, v2 = 0;

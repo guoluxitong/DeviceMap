@@ -11,8 +11,7 @@ import java.lang.annotation.Annotation;
  */
 
 public class FloatMapCommand extends IntCommand implements Serializable {
-    public FloatMapCommand(SdcSoftDevice device){
-        super(device);
+    public FloatMapCommand(){
         valueType = Command.FLOAT_VALUE;
         this.script = "reslut = integerToHexString(valueString.toInteger()*100);";
     }

@@ -123,6 +123,8 @@ public abstract class SdcSoftDevice implements Serializable {
     }
 
     private void addField(DeviceFieldForUI field) {
+        if(null == field)
+            return;
         if (fieldMap.containsKey(field.getKey()))
             fieldMap.get(field.getKey()).add(field);
     }
@@ -293,6 +295,12 @@ public abstract class SdcSoftDevice implements Serializable {
      * 设备命令集合
      */
     public Map<String,ArrayList<Command>> getCommands() {
+        String modbusNoString = String.format("%02x",getModbusNo());
+        for (ArrayList<Command> cmds : commandsMap.values()){
+            for (Command cmd : cmds){
+                cmd.setModbusNo(modbusNoString);
+            }
+        }
         return commandsMap;
     }
 
@@ -432,16 +440,8 @@ public abstract class SdcSoftDevice implements Serializable {
                 if (devicePointMap == null)
                     return null;
                 for (String key : devicePointMap.getPointMap().keySet()) {
-//                    try {
-                    if (key.equals("_addshuibeng")){
-                        ByteField f = devicePointMap.getPointMap().get(key);
-                        device.handleByteField(f, bytes);
-                    }
-                        ByteField f = devicePointMap.getPointMap().get(key);
-                        device.handleByteField(f, bytes);
-//                    }catch (Exception x){
-//                        x.printStackTrace();
-//                    }
+                    ByteField f = devicePointMap.getPointMap().get(key);
+                    device.handleByteField(f, bytes);
                 }
                 device.setPowerVal(powerVal);
                 device.setMediaVal(mediaVal);
@@ -475,6 +475,9 @@ public abstract class SdcSoftDevice implements Serializable {
             DevicePointMap devicePointMap = maps.get(device.getDeviceType());
             device.handleDeviceNo(current);
             for (String key : devicePointMap.getPointMap().keySet()) {
+                if(key.equals("_xunhuanbeng")){
+                    System.out.println("fdsa");
+                }
                 ByteField f = devicePointMap.getPointMap().get(key);
                 device.handleByteField(f, current);
             }

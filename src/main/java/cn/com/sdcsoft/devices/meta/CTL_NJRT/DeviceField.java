@@ -10,4 +10,11 @@ public class DeviceField extends OpenCloseField {
     public void setDeviceFieldForUIKey(DeviceFieldForUI fieldForUI) {
         fieldForUI.setKey(KEY_DEVICE);
     }
+
+    @Override
+    public Object getValue() {
+        if (null != valueMap)
+            return valueMap.get(value);
+        return super.getValueString();
+    }
 }

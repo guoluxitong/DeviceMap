@@ -288,6 +288,15 @@ public class DevicePointMap_CTL_NJZJ_IP_458 extends DevicePointMap {
         map.put("ex_zhengqiwendugaobaojing", ByteField.Init(new ExceptionField(), "ex_zhengqiwendugaobaojing", 333, 2, "蒸汽温度高报警"));
 
         map.put("ex_shuixiangwendugaobaojing", ByteField.Init(new ExceptionField(), "ex_shuixiangwendugaobaojing", 335, 2, "水箱温度高报警"));
+
+        map.put("ex_1#guodianliubaojing", ByteField.Init(new ExceptionField(), "ex_1#guodianliubaojing", 337, 2, "1#过电流报警"));
+        map.put("ex_2#guodianliubaojing", ByteField.Init(new ExceptionField(), "ex_2#guodianliubaojing", 339, 2, "2#过电流报警"));
+        map.put("ex_3#guodianliubaojing", ByteField.Init(new ExceptionField(), "ex_3#guodianliubaojing", 341, 2, "3#过电流报警"));
+        map.put("ex_4#guodianliubaojing", ByteField.Init(new ExceptionField(), "ex_4#guodianliubaojing", 343, 2, "4#过电流报警"));
+        map.put("ex_5#guodianliubaojing", ByteField.Init(new ExceptionField(), "ex_5#guodianliubaojing", 345, 2, "5#过电流报警"));
+        map.put("ex_gufengjiguzhangbaojing", ByteField.Init(new ExceptionField(), "ex_gufengjiguzhangbaojing", 347, 2, "鼓风机故障报警"));
+        map.put("ex_jiezhigaowenbaojing", ByteField.Init(new ExceptionField(), "ex_jiezhigaowenbaojing", 349, 2, "介质高温报警"));
+        map.put("ex_jiezhidiwenbaojing", ByteField.Init(new ExceptionField(), "ex_jiezhidiwenbaojing", 351, 2, "介质低温报警"));
         //
         map.put("ex_bentipaiyanwenduchuanganqiguzhang", ByteField.Init(new ExceptionField(), "ex_bentipaiyanwenduchuanganqiguzhang", 578, 2, "本体排烟温度传感器故障"));
 
@@ -476,6 +485,16 @@ public class DevicePointMap_CTL_NJZJ_IP_458 extends DevicePointMap {
         map.put("ex_nengliangshezhiwenduchuanganqiguzhang", ByteField.Init(new ExceptionField(), "ex_nengliangshezhiwenduchuanganqiguzhang", 762, 2, "能量设置温度传感器故障"));
 
         map.put("ex_zhengqiwenduchuanganqiguzhang", ByteField.Init(new ExceptionField(), "ex_zhengqiwenduchuanganqiguzhang", 764, 2, "蒸汽温度传感器故障"));
+        map.put("ex_shineiwenduchuanganqiguzhang", ByteField.Init(new ExceptionField(), "ex_shineiwenduchuanganqiguzhang", 766, 2, "室内温度传感器故障"));
+        map.put("ex_1#dianliufankuichuanganqiguzhang", ByteField.Init(new ExceptionField(), "ex_1#dianliufankuichuanganqiguzhang", 768, 2, "1#电流反馈传感器故障"));
+        map.put("ex_2#dianliufankuichuanganqiguzhang", ByteField.Init(new ExceptionField(), "ex_2#dianliufankuichuanganqiguzhang", 770, 2, "2#电流反馈传感器故障"));
+        map.put("ex_3#dianliufankuichuanganqiguzhang", ByteField.Init(new ExceptionField(), "ex_3#dianliufankuichuanganqiguzhang", 772, 2, "3#电流反馈传感器故障"));
+        map.put("ex_4#dianliufankuichuanganqiguzhang", ByteField.Init(new ExceptionField(), "ex_4#dianliufankuichuanganqiguzhang", 774, 2, "4#电流反馈传感器故障"));
+        map.put("ex_5#dianliufankuichuanganqiguzhang", ByteField.Init(new ExceptionField(), "ex_5#dianliufankuichuanganqiguzhang", 776, 2, "5#电流反馈传感器故障"));
+        map.put("ex_jiezhiwenduchuanganqiguzhang", ByteField.Init(new ExceptionField(), "ex_jiezhiwenduchuanganqiguzhang", 778, 2, "介质温度传感器故障"));
+        map.put("ex_xiyuwenduchuanganqiguzhang", ByteField.Init(new ExceptionField(), "ex_xiyuwenduchuanganqiguzhang", 780, 2, "洗浴温度传感器故障"));
+        map.put("ex_huanjingwenduchuanganqiguzhang", ByteField.Init(new ExceptionField(), "ex_huanjingwenduchuanganqiguzhang", 782, 2, "环境温度传感器故障"));
+        map.put("ex_jiezhiyalichuanganqiguzhang", ByteField.Init(new ExceptionField(), "ex_jiezhiyalichuanganqiguzhang", 784, 2, "介质压力传感器故障"));
         //
         map.put("mo_bentipaiyanwendu", ByteField.Init(new MockField(), "mo_bentipaiyanwendu", 823, 2, "本体排烟温度", "℃"));
         map.put("mo_paiyanwendu", ByteField.Init(new MockField(), "mo_paiyanwendu", 825, 2, "排烟温度", "℃"));

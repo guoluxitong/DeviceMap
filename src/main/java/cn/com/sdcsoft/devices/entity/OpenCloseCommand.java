@@ -6,8 +6,7 @@ import java.io.Serializable;
 
 
 public class OpenCloseCommand extends IntCommand implements Serializable {
-    public OpenCloseCommand(SdcSoftDevice device) {
-        super(device);
+    public OpenCloseCommand() {
         this.valueType = OPEN_CLOSE_VALUE;
         maxValue = 1;
         minValue = 0;

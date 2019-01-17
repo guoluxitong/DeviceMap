@@ -6,11 +6,8 @@ import java.io.Serializable;
 
 
 public class IntCommand extends Command implements Serializable {
-    public IntCommand(){
 
-    }
-    public IntCommand(SdcSoftDevice device){
-        super(device);
+    public IntCommand(){
         valueType = Command.INT_VALUE;
     }
 
@@ -32,7 +29,7 @@ public class IntCommand extends Command implements Serializable {
     public String convertToString() {
         String baseStr =String.format(
                 "%s%s%s%s",
-                String.format("%02x",device.getModbusNo()),
+                String.format("%02x",getModbusNo()),
                 action,
                 address,
                 value);

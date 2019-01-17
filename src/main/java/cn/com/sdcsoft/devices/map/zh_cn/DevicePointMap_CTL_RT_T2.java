@@ -15,11 +15,11 @@ import static cn.com.sdcsoft.devices.map.zh_cn.DevicePointMap.CTL_NJRT_Common_Va
  * Created by jialiang on 2018/4/20.
  */
 
-public class DevicePointMap_CTL_NJRT_T2 extends DevicePointMap {
+public class DevicePointMap_CTL_RT_T2 extends DevicePointMap {
     public static final String Key = "CTL_NJRT_T2";
 
 
-    public DevicePointMap_CTL_NJRT_T2() {
+    public DevicePointMap_CTL_RT_T2() {
 
         map.put("_ranshaoqi", ByteField.Init(new CountField(), "_ranshaoqi",  "燃烧器"));
         map.put("_addshuibeng", ByteField.Init(new CountField(), "_addshuibeng",  "给水泵"));

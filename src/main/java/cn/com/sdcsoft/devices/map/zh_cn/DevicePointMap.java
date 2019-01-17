@@ -124,4 +124,6 @@ public class DevicePointMap extends cn.com.sdcsoft.devices.map.DevicePointMap{
             put(1, "大火");
         }};
     }
+
+
 }

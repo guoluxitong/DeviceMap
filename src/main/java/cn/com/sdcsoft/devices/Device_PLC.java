@@ -9,45 +9,45 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Device_PLC extends SdcSoftDevice {
-    protected static final String KEY_POINT_Add_SHUI_BENG = "_addshuibeng";
-    protected static final String KEY_POINT_Add_SHUI_BENG_1 = "de_1_addshuibeng_start_stop";
-    protected static final String KEY_POINT_Add_SHUI_BENG_2 = "de_2_addshuibeng_start_stop";
+    public static final String KEY_POINT_Add_SHUI_BENG = "_addshuibeng";
+    public static final String KEY_POINT_Add_SHUI_BENG_1 = "de_1_addshuibeng_start_stop";
+    public static final String KEY_POINT_Add_SHUI_BENG_2 = "de_2_addshuibeng_start_stop";
 
 
-    protected static final String KEY_POINT_XUN_HUAN_BENG = "_xunhuanbeng";
-    protected static final String KEY_POINT_XUN_HUAN_BENG_1 = "de_1_xunhuanbeng_start_stop";
-    protected static final String KEY_POINT_XUN_HUAN_BENG_2 = "de_2_xunhuanbeng_start_stop";
-    protected static final String KEY_POINT_XUN_HUAN_BENG_3 = "de_3_xunhuanbeng_start_stop";
+    public static final String KEY_POINT_XUN_HUAN_BENG = "_xunhuanbeng";
+    public static final String KEY_POINT_XUN_HUAN_BENG_1 = "de_1_xunhuanbeng_start_stop";
+    public static final String KEY_POINT_XUN_HUAN_BENG_2 = "de_2_xunhuanbeng_start_stop";
+    public static final String KEY_POINT_XUN_HUAN_BENG_3 = "de_3_xunhuanbeng_start_stop";
 
-    protected static final String KEY_POINT_CHU_YANG_BENG = "_chuanyangbeng";
-    protected static final String KEY_POINT_CHU_YANG_BENG_1 = "de_1_chuyangbeng_start_stop";
-    protected static final String KEY_POINT_CHU_YANG_BENG_2 = "de_2_chuyangbeng_start_stop";
+    public static final String KEY_POINT_CHU_YANG_BENG = "_chuanyangbeng";
+    public static final String KEY_POINT_CHU_YANG_BENG_1 = "de_1_chuyangbeng_start_stop";
+    public static final String KEY_POINT_CHU_YANG_BENG_2 = "de_2_chuyangbeng_start_stop";
 
-    protected static final String KEY_POINT_ZHU_YOU_BENG = "_zhuyoubeng";
-    protected static final String KEY_POINT_ZHU_YOU_BENG_1 = "de_zhuyoubeng_start_stop";
+    public static final String KEY_POINT_ZHU_YOU_BENG = "_zhuyoubeng";
+    public static final String KEY_POINT_ZHU_YOU_BENG_1 = "de_zhuyoubeng_start_stop";
 
-    protected static final String KEY_POINT_ZHEN_KONG_BENG = "_zhenkongbeng";
-    protected static final String KEY_POINT_ZHEN_KONG_BENG_1 = "de_zhenkongbeng_start_stop";
+    public static final String KEY_POINT_ZHEN_KONG_BENG = "_zhenkongbeng";
+    public static final String KEY_POINT_ZHEN_KONG_BENG_1 = "de_zhenkongbeng_start_stop";
 
-    protected static final String KEY_POINT_JIE_NENG_BENG = "_jienengbeng";
-    protected static final String KEY_POINT_JIE_NENG_BENG_1 = "de_1_jienengbeng_start_stop";
-    protected static final String KEY_POINT_JIE_NENG_BENG_2 = "de_2_jienengbeng_start_stop";
+    public static final String KEY_POINT_JIE_NENG_BENG = "_jienengbeng";
+    public static final String KEY_POINT_JIE_NENG_BENG_1 = "de_1_jienengbeng_start_stop";
+    public static final String KEY_POINT_JIE_NENG_BENG_2 = "de_2_jienengbeng_start_stop";
 
-    protected static final String KEY_POINT_ZHAO_QI_FAN = "_zhaoqifan";
-    protected static final String KEY_POINT_ZHAO_QI_FAN_1 = "de_1_zhaoqifengji_start_stop";
-    protected static final String KEY_POINT_ZHAO_QI_FAN_2 = "de_1_zhaoqifengji_start_stop";
+    public static final String KEY_POINT_ZHAO_QI_FAN = "_zhaoqifan";
+    public static final String KEY_POINT_ZHAO_QI_FAN_1 = "de_1_zhaoqifengji_start_stop";
+    public static final String KEY_POINT_ZHAO_QI_FAN_2 = "de_2_zhaoqifengji_start_stop";
 
-    protected static final String KEY_POINT_GU_FENG_FAN = "_gufengfan";
-    protected static final String KEY_POINT_GU_FENG_FAN_1 = "de_1_gufengji_start_stop";
+    public static final String KEY_POINT_GU_FENG_FAN = "_gufengfan";
+    public static final String KEY_POINT_GU_FENG_FAN_1 = "de_1_gufengji_start_stop";
 
-    protected static final String KEY_POINT_YIN_FENG_FAN = "_yinfengfan";
-    protected static final String KEY_POINT_YIN_FENG_FAN_1 = "de_1_yinfengji_start_stop";
+    public static final String KEY_POINT_YIN_FENG_FAN = "_yinfengfan";
+    public static final String KEY_POINT_YIN_FENG_FAN_1 = "de_1_yinfengji_start_stop";
 
-    protected static final String KEY_POINT_LU_PAI_FAN = "_lupaifan";
-    protected static final String KEY_POINT_LU_PAI_FAN_1 = "de_lupai_start_stop";
+    public static final String KEY_POINT_LU_PAI_FAN = "_lupaifan";
+    public static final String KEY_POINT_LU_PAI_FAN_1 = "de_lupai_start_stop";
 
-    protected static final String KEY_POINT_CHU_ZHA_FAN = "_chuzhafan";
-    protected static final String KEY_POINT_CHU_ZHA_FAN_1 = "de_chuzha_start_stop";
+    public static final String KEY_POINT_CHU_ZHA_FAN = "_chuzhafan";
+    public static final String KEY_POINT_CHU_ZHA_FAN_1 = "de_chuzha_start_stop";
 
 
     @Override

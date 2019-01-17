@@ -1,11 +1,14 @@
 package cn.com.sdcsoft.devices.map.zh_cn;
 
 
+import cn.com.sdcsoft.devices.Device_PLC;
 import cn.com.sdcsoft.devices.SdcSoftDevice;
 import cn.com.sdcsoft.devices.meta.ByteField;
 import cn.com.sdcsoft.devices.meta.CountField;
 import cn.com.sdcsoft.devices.meta.FixedValueField;
 import cn.com.sdcsoft.devices.meta.PLC.*;
+
+import static cn.com.sdcsoft.devices.Device_PLC.*;
 
 /**
  * @author doudou
@@ -19,8 +22,9 @@ public class DevicePointMap_PLC_RanYouDaoReYou extends DevicePointMap {
         /**
          * 计算属性（不显示）
          */
-        map.put("_zhuyoubeng", ByteField.Init(new CountField(), "_zhuyoubeng",  "注油泵"));
-        map.put("_xunhuanbeng", ByteField.Init(new CountField(), "_xunhuanbeng",  "循环泵"));
+        map.put(Device_PLC.KEY_POINT_ZHU_YOU_BENG, ByteField.Init(new CountField(), Device_PLC.KEY_POINT_ZHU_YOU_BENG,  "注油泵"));
+        map.put(Device_PLC.KEY_POINT_XUN_HUAN_BENG, ByteField.Init(new CountField(), Device_PLC.KEY_POINT_XUN_HUAN_BENG,   "循环泵"));
+
 
 
 
@@ -70,13 +74,13 @@ public class DevicePointMap_PLC_RanYouDaoReYou extends DevicePointMap {
         map.put("se_diandongfashoudongkaidusheding", ByteField.Init(new SettingField(), "se_diandongfashoudongkaidusheding", 179, 4, "电动阀手动开度设定", "%"));
 
         map.put("de_1_xunhuanbeng_auto", ByteField.Init(new DeviceField(), "de_1_xunhuanbeng_auto", 203, 2, "1#循环泵", PLC_Common_ValueMaps.coms_atuo));
-        map.put("de_1_xunhuanbeng_start_stop", ByteField.Init(new DeviceField(), "de_1_xunhuanbeng_start_stop", 205, 2, "1#循环泵", DevicePointMap.coms_start_stop));
+        map.put(KEY_POINT_XUN_HUAN_BENG_1, ByteField.Init(new DeviceField(), KEY_POINT_XUN_HUAN_BENG_1, 205, 2, "1#循环泵", DevicePointMap.coms_start_stop));
         map.put("de_2_xunhuanbeng_auto", ByteField.Init(new DeviceField(), "de_2_xunhuanbeng_auto", 207, 2, "2#循环泵", PLC_Common_ValueMaps.coms_atuo));
-        map.put("de_2_xunhuanbeng_start_stop", ByteField.Init(new DeviceField(), "de_2_xunhuanbeng_start_stop", 209, 2, "2#循环泵", DevicePointMap.coms_start_stop));
+        map.put(KEY_POINT_XUN_HUAN_BENG_2, ByteField.Init(new DeviceField(), KEY_POINT_XUN_HUAN_BENG_2, 209, 2, "2#循环泵", DevicePointMap.coms_start_stop));
         map.put("de_3_xunhuanbeng_auto", ByteField.Init(new DeviceField(), "de_3_xunhuanbeng_auto", 211, 2, "3#循环泵", PLC_Common_ValueMaps.coms_atuo));
-        map.put("de_3_xunhuanbeng_start_stop", ByteField.Init(new DeviceField(), "de_3_xunhuanbeng_start_stop", 213, 2, "3#循环泵", DevicePointMap.coms_start_stop));
+        map.put(KEY_POINT_XUN_HUAN_BENG_3, ByteField.Init(new DeviceField(), KEY_POINT_XUN_HUAN_BENG_3, 213, 2, "3#循环泵", DevicePointMap.coms_start_stop));
         map.put("de_zhuyoubeng_auto", ByteField.Init(new DeviceField(), "de_zhuyoubeng_auto", 215, 2, "注油泵", PLC_Common_ValueMaps.coms_atuo));
-        map.put("de_zhuyoubeng_start_stop", ByteField.Init(new DeviceField(), "de_zhuyoubeng_start_stop", 217, 2, "注油泵", DevicePointMap.coms_start_stop));
+        map.put(KEY_POINT_ZHU_YOU_BENG_1, ByteField.Init(new DeviceField(), KEY_POINT_ZHU_YOU_BENG_1, 217, 2, "注油泵", DevicePointMap.coms_start_stop));
 
         map.put("ex_ranshaoqiguzhang", ByteField.Init(new ExceptionField(), "ex_ranshaoqiguzhang", 229, 2, "燃烧器故障", 8));
         map.put("ex_ranqixielou", ByteField.Init(new ExceptionField(), "ex_ranqixielou", 229, 2, "燃气泄漏", 9));

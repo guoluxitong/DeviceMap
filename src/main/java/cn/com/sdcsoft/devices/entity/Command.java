@@ -28,15 +28,21 @@ public abstract class Command implements Serializable {
     public Command(){
 
     }
-    public Command(SdcSoftDevice device) {
-        this.device = device;
-    }
 
     protected String name;
     protected String address;
     protected String valueString;
     protected String value;
 
+    public void setModbusNo(String modbusNo) {
+        this.modbusNo = modbusNo;
+    }
+
+    protected String getModbusNo() {
+        return modbusNo;
+    }
+
+    private String modbusNo;
     public void setUnit(String unit) {
         this.unit = unit;
     }
@@ -61,7 +67,6 @@ public abstract class Command implements Serializable {
     }
 
     protected Object maxValue, minValue;
-    protected SdcSoftDevice device;
 
     public void setScript(String script) {
         this.script = script;
@@ -112,33 +117,11 @@ public abstract class Command implements Serializable {
         return valueString;
     }
 
-    private void setFieldsByDeviceUiFields() throws Exception {
-        if (null == device)
-            throw new Exception("need to set one instance of SdcSoftDevice for the command");
-
-        HashMap<String, ArrayList<DeviceFieldForUI>> map = device.getFieldMap();
-        for (String key : map.keySet()) {
-            for (DeviceFieldForUI ui : map.get(key)) {
-                if (ui.getName().equals(this.name)) {
-                    title = ui.getTitle();
-                    unit = ui.getUnit();
-                    return;
-                }
-            }
-        }
-    }
-
-    public String getTitle() throws Exception {
-        if (null == title || title.length() == 0) {
-            setFieldsByDeviceUiFields();
-        }
+    public String getTitle() {
         return title;
     }
 
-    public String getUnit() throws Exception {
-        if (null == unit || unit.length() == 0) {
-            setFieldsByDeviceUiFields();
-        }
+    public String getUnit() {
         return unit;
     }
 
@@ -151,7 +134,7 @@ public abstract class Command implements Serializable {
             valueIsSet = false;
             String str = convertToString();
             valueString = "";
-            return str;
+            return str.toUpperCase();
         }
         return "";
     }

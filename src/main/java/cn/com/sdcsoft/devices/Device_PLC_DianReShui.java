@@ -1,9 +1,5 @@
 package cn.com.sdcsoft.devices;
 
-import cn.com.sdcsoft.devices.entity.Command;
-import cn.com.sdcsoft.devices.entity.FloatMapCommand;
-import cn.com.sdcsoft.devices.entity.IntCommand;
-import cn.com.sdcsoft.devices.entity.TimeCommand;
 import cn.com.sdcsoft.devices.meta.DeviceFieldForUI;
 
 import java.util.*;
@@ -11,7 +7,7 @@ import java.util.*;
 public class Device_PLC_DianReShui extends Device_PLC_Dian {
 
     public Device_PLC_DianReShui() {
-        this.BYTE_ARRAY_LENGTH = 245;
+        this.BYTE_ARRAY_LENGTH = 243;
     }
 
     @Override

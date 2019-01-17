@@ -14,18 +14,20 @@ import java.text.DecimalFormat;
 
 public class FloatCommand extends Command implements Serializable {
     DecimalFormat decimalFormat=new DecimalFormat(".00");
-    public FloatCommand(){
 
-    }
-    public FloatCommand(SdcSoftDevice device) {
-        super(device);
+    public FloatCommand() {
         action = "10";
         valueType = FLOAT_VALUE;
     }
 
     @Override
     public void handleValue(Object... values){
-        Float f = (Float)values[0];
+        float f = 0;
+        if(values[0] instanceof Integer){
+            f = ((Integer)values[0]);
+        }else if(values[0] instanceof Float){
+            f = (Float)values[0];
+        }
         valueString = decimalFormat.format(f);
         byte[] data = intToBytes4(Float.floatToIntBits(f));
         this.value = String.format("%02x%02x%02x%02x",data[0],data[1],data[2],data[3]);
@@ -35,7 +37,7 @@ public class FloatCommand extends Command implements Serializable {
     public String convertToString() {
         String baseStr =String.format(
                 "%s%s%s000204%s",
-                String.format("%02x",device.getModbusNo()),
+                getModbusNo(),
                 action,
                 address,
                 value);

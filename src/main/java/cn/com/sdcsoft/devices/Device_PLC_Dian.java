@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public abstract class Device_PLC_Dian extends Device_PLC {
 
-    private static final String KEY_POINT_JIA_RE_ZU = "mo_qidongjiarezushu";
+    public static final String KEY_POINT_JIA_RE_ZU = "mo_qidongjiarezushu";
 
     @Override
     protected int getPowerInfo() {
