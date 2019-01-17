@@ -2,14 +2,12 @@ package cn.com.sdcsoft.devices;
 
 import cn.com.sdcsoft.devices.meta.DeviceFieldForUI;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Device_PLC_DianReShui extends Device_PLC_Dian {
 
     public Device_PLC_DianReShui() {
-        this.BYTE_ARRAY_LENGTH = 245;
+        this.BYTE_ARRAY_LENGTH = 243;
     }
 
     @Override
@@ -26,6 +24,4 @@ public class Device_PLC_DianReShui extends Device_PLC_Dian {
 
         return list;
     }
-
-
 }

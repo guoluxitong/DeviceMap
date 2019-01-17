@@ -1,23 +1,37 @@
 package cn.com.sdcsoft.devices.meta;
 
-import cn.com.sdcsoft.devices.SdcSoftDevice;
+import cn.com.sdcsoft.devices.entity.Command;
+import cn.com.sdcsoft.devices.entity.IntCommand;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 
 /**
  * Created by jialiang on 2018/4/19.
  */
-
-public abstract class ByteField {
-    private String name;
-    private String unit;
-    private String title;
+public abstract class ByteField extends CommandField{
     protected int startIndex;
     private int bytesLength, baseNumber;
     protected int bit;
     private boolean needFormat = false;
     protected HashMap<Integer, String> valueMap;
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    /**
+     * 485内存地址
+     */
+    protected String address;
+
+    protected Object maxValue,minValue;
+
+    /**
     public boolean isShow() {
         return show;
     }
@@ -28,30 +42,7 @@ public abstract class ByteField {
 
     protected boolean show = true;
 
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getUnit() {
-        return null == unit ? "" : unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
+**/
 
     public int getStartIndex() {
         return startIndex;
@@ -85,9 +76,16 @@ public abstract class ByteField {
         this.valueMap = valueMap;
     }
 
-    public abstract void setDeviceFieldForUIKey(DeviceFieldForUI fieldForUI);
+    protected abstract void setDeviceFieldForUIKey(DeviceFieldForUI fieldForUI);
 
     public abstract Object getValue();
+
+    @Override
+    protected Command createCommandAndInitValue() {
+        IntCommand cmd = new IntCommand();
+        cmd.initValue(getValue());
+        return cmd;
+    }
 
     public String getValueBitString(){
         return String.format("%d",getValue());
@@ -104,54 +102,100 @@ public abstract class ByteField {
         return String.format("%%s%s", getUnit());
     }
 
-//    public String getValueString() {
-//        return String.format("%%s%s", getValue().toString(), getUnit());
-//    }
-
     public DeviceFieldForUI getDeviceFieldForUI()
     {
         DeviceFieldForUI fieldForUI = new DeviceFieldForUI();
-        if(bytesLength < 1)//如果是要计算的点位对象
-        {
-            if (isShow())//如果要显示，则该点位对象为其类型所对应的key，该计算点位将包含在SdcsoftDevice对应的List集合中
-            {
-                setDeviceFieldForUIKey(fieldForUI);
-            }
-            else //如果无需显示，则该点位对象的key设置为SdcSoftDevice.KEY_Count_Fields，该点位将包含在该key对应的SdcsoftDevice的List集合中
-            {
-                fieldForUI.setKey(SdcSoftDevice.KEY_Count_Fields);
-            }
-        }
-        else
-        {
-            setDeviceFieldForUIKey(fieldForUI);
-        }
+        setDeviceFieldForUIKey(fieldForUI);
         fieldForUI.setName(getName());
         fieldForUI.setTitle(getTitle());
         fieldForUI.setValue(getValue());
         fieldForUI.setValueString(getValueString());
         fieldForUI.setNeedFormat(needFormat);
+        fieldForUI.setUnit(getUnit());
         return fieldForUI;
     }
 
-    public static ByteField Init(ByteField field, String name, int startIndex, int bytesLength, String title) {
+    public DeviceFieldForUI getDeviceFieldForUI(Object value)
+    {
+        DeviceFieldForUI fieldForUI = new DeviceFieldForUI();
+        setDeviceFieldForUIKey(fieldForUI);
+        fieldForUI.setName(getName());
+        fieldForUI.setTitle(getTitle());
+        fieldForUI.setValue(value);
+        fieldForUI.setValueString(getValueString());
+        fieldForUI.setNeedFormat(needFormat);
+        fieldForUI.setUnit(getUnit());
+        return fieldForUI;
+    }
+    /**
+     * 添加计算并显示的点位
+     * @param groupKey 点位分组Key
+     * @param field
+     * @param name
+     * @param title
+     * @return
+     */
+    public static ByteField Init(@NotNull String groupKey, CountShowField field, String name, String title)
+    {
         field.setName(name);
-        field.setStartIndex(startIndex);
-        field.setBytesLength(bytesLength);
+        field.setTitle(title);
+        field.groupKey = groupKey;
+        return field;
+    }
+    public static ByteField Init(@NotNull String groupKey, CountShowField field, String name, String title,String unit)
+    {
+        Init(groupKey,field,name,title);
+        field.setUnit(unit);
+        return field;
+    }
+
+    /**
+     * 添加计算不显示的点位
+     * @param field
+     * @param name
+     * @param title
+     * @return
+     */
+    public static ByteField Init(CountField field, String name, String title)
+    {
+        field.setName(name);
         field.setTitle(title);
         return field;
     }
 
-    /// <summary>
-    /// 添加计算点位，isShow确定点位是否用来显示，默认为true
-    /// </summary>
-    public static ByteField Init(ByteField field, String name, int startIndex, int bytesLength, String title,boolean isShow)
+    /**
+     * 添加固定值点位
+     * @param field
+     * @param name
+     * @param title
+     * @param value
+     * @param valueMap
+     * @return
+     */
+    public static ByteField Init(FixedValueField field, String name, String title,int value, HashMap<Integer, String> valueMap)
+    {
+        field.setName(name);
+        field.setTitle(title);
+        field.setValue(value);
+        field.setValueMap(valueMap);
+        return field;
+    }
+
+    /**
+     * 添加普通显示点位
+     * @param field
+     * @param name
+     * @param startIndex
+     * @param bytesLength
+     * @param title
+     * @return
+     */
+    public static ByteField Init(ByteField field, String name, int startIndex, int bytesLength, String title)
     {
         field.setName(name);
         field.setStartIndex(startIndex);
         field.setBytesLength(bytesLength);
         field.setTitle(title);
-        field.show = isShow;
         return field;
     }
 
@@ -161,12 +205,31 @@ public abstract class ByteField {
         return field;
     }
 
+    private static void initCommandInfo(ByteField field,String cmdGroupKey,String address,Object minValue,Object maxValue){
+        field.setCommandGroupKey(cmdGroupKey);
+        field.setAddress(address);
+        field.setMinValue(minValue);
+        field.setMaxValue(maxValue);
+    }
+
+    public static ByteField Init(ByteField field, String name, int startIndex, int bytesLength, String title, HashMap<Integer, String> valueMap,
+    String cmdGroupKey,String address,Object minValue,Object maxValue) {
+        Init(field, name, startIndex, bytesLength, title,valueMap);
+        initCommandInfo(field,cmdGroupKey,address,minValue,maxValue);
+        return field;
+    }
+
     public static ByteField Init(ByteField field, String name, int startIndex, int bytesLength, String title, String unit) {
         Init(field, name, startIndex, bytesLength, title);
         field.setUnit(unit);
         return field;
     }
-
+    public static ByteField Init(ByteField field, String name, int startIndex, int bytesLength, String title, String unit,
+                                 String cmdGroupKey, String address,Object minValue,Object maxValue) {
+        Init(field, name, startIndex, bytesLength, title,unit);
+        initCommandInfo(field,cmdGroupKey,address,minValue,maxValue);
+        return field;
+    }
     public static ByteField Init(ByteField field, String name, int startIndex, int bytesLength, String title, int bit) {
         Init(field, name, startIndex, bytesLength, title);
         field.setBit(bit);
@@ -176,6 +239,13 @@ public abstract class ByteField {
     public static ByteField Init(ByteField field, String name, int startIndex, int bytesLength, String title, int bit, HashMap<Integer, String> valueMap) {
         Init(field, name, startIndex, bytesLength, title,bit);
         field.setValueMap(valueMap);
+        return field;
+    }
+
+    public static ByteField Init(ByteField field, String name, int startIndex, int bytesLength, String title, int bit, HashMap<Integer, String> valueMap,
+                                String cmdGroupKey, String address,Object minValue,Object maxValue) {
+        Init(field, name, startIndex, bytesLength, title,bit,valueMap);
+        initCommandInfo(field,cmdGroupKey,address,minValue,maxValue);
         return field;
     }
 

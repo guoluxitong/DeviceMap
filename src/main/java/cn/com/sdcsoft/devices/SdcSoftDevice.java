@@ -1,15 +1,18 @@
 package cn.com.sdcsoft.devices;
 
+import cn.com.sdcsoft.devices.entity.Command;
 import cn.com.sdcsoft.devices.entity.Element;
 import cn.com.sdcsoft.devices.map.DevicePointMap;
 import cn.com.sdcsoft.devices.meta.ByteField;
+import cn.com.sdcsoft.devices.meta.CommandField;
 import cn.com.sdcsoft.devices.meta.DeviceFieldForUI;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
+
+import static cn.com.sdcsoft.devices.map.DevicePointMap.*;
 
 /**
  * Created by jialiang on 2018/4/19.
@@ -26,23 +29,10 @@ public abstract class SdcSoftDevice implements Serializable {
     public static final String KEY_POINT_RUN_HOURS = "ba_yunxingxiaoshishu";
 
 
-    public static final String KEY_BASE = "baseInfo";
-    public static final String KEY_RUN = "runInfo";
-    public static final String KEY_EXCEPTION = "exceptionInfo";
-    public static final String KEY_MOCK = "mockInfo";
-    public static final String KEY_SETTING = "settingInfo";
-    public static final String KEY_START_STOP = "startStopInfo";
-    public static final String KEY_DEVICE = "deviceInfo";
-    public static final String KEY_OPEN_CLOSE = "openclose";
-    /**
-     * 计算属性的KEY
-     */
-    public static final String KEY_Count_Fields = "countfields";
-
     public static final int Style_Horizontal = 0;
     public static final int Style_Vertical = 1;
 
-    protected HashMap<String, ArrayList<DeviceFieldForUI>> fieldMap = new HashMap<String, ArrayList<DeviceFieldForUI>>();
+    private HashMap<String, ArrayList<DeviceFieldForUI>> fieldMap = new HashMap<String, ArrayList<DeviceFieldForUI>>();
 
     public SdcSoftDevice() {
         fieldMap.put(KEY_BASE, new ArrayList<DeviceFieldForUI>());
@@ -58,6 +48,29 @@ public abstract class SdcSoftDevice implements Serializable {
     private String deviceNo;
     private String nickName;
     private String deviceType;
+    private Map<String, ArrayList<Command>> commandsMap;
+
+    /**
+     * 初始命令分组集合
+     * 提供点位表中定义的命令集合传入接口
+     */
+    private void initCommandsMapKeys(Map<String, ArrayList<Command>> map){
+        commandsMap = map;
+    }
+
+    public int getModbusNo() {
+        return modbusNo;
+    }
+
+    public void setModbusNo(int modbusNo) {
+        this.modbusNo = modbusNo;
+    }
+
+    /**
+     * Modbus 设备编号
+     */
+    private int modbusNo = 1;
+
     /**
      * 设备字节长度
      */
@@ -83,7 +96,35 @@ public abstract class SdcSoftDevice implements Serializable {
         this.deviceNo = deviceNo;
     }
 
-    public void AddField(DeviceFieldForUI field) {
+    private void addCommand(String cmdGroupKey,Command cmd){
+        if(commandsMap.containsKey(cmdGroupKey)){
+            commandsMap.get(cmdGroupKey).add(cmd);
+        }
+    }
+    /**
+     * 添加数据点位
+     * @param field meta数据点位对象
+     */
+    void addField(@NotNull ByteField field) {
+        //需要剔除纯控制程序点位
+        addField(field.getDeviceFieldForUI());
+        //处理保护执行命令的点位
+        if(null != field.getCommand()){
+            addCommand(field.getCommandGroupKey(),field.getCommand());
+        }
+    }
+
+    /**
+     * 添加纯命令点位
+     * @param field meta命令点位对象
+     */
+    private void addField(CommandField field) {
+        addCommand(field.getCommandGroupKey(),field.getCommand());
+    }
+
+    private void addField(DeviceFieldForUI field) {
+        if(null == field)
+            return;
         if (fieldMap.containsKey(field.getKey()))
             fieldMap.get(field.getKey()).add(field);
     }
@@ -154,7 +195,7 @@ public abstract class SdcSoftDevice implements Serializable {
     }
 
     private HashMap<String, DeviceFieldForUI> getFieldsMap(String fieldsGroupKey) {
-        HashMap<String, DeviceFieldForUI> map = new HashMap();
+        HashMap<String, DeviceFieldForUI> map = new HashMap<String, DeviceFieldForUI>();
         List<DeviceFieldForUI> list = fieldMap.get(fieldsGroupKey);
         for (DeviceFieldForUI deviceFieldForUI : list) {
             map.put(deviceFieldForUI.getName(), deviceFieldForUI);
@@ -195,8 +236,6 @@ public abstract class SdcSoftDevice implements Serializable {
 
     /**
      * 获取设备燃料
-     *
-     * @return
      */
     public DeviceFieldForUI getPower() {
         return powerUI;
@@ -204,8 +243,6 @@ public abstract class SdcSoftDevice implements Serializable {
 
     /**
      * 获取设备介质
-     *
-     * @return
      */
     public DeviceFieldForUI getMedia() {
         return mediaUI;
@@ -214,8 +251,6 @@ public abstract class SdcSoftDevice implements Serializable {
 
     /**
      * 获取设备模式，可用于确定设备类型
-     *
-     * @return
      */
     public abstract int getMode();
 
@@ -225,8 +260,6 @@ public abstract class SdcSoftDevice implements Serializable {
 
     /**
      * 获取炉子元素信息
-     *
-     * @return
      */
     public Element getStoveElement() {
         return getStoveElement((Integer) getPower().getValue(), (Integer) getMedia().getValue());
@@ -234,8 +267,6 @@ public abstract class SdcSoftDevice implements Serializable {
 
     /**
      * 获取炉子元素信息
-     *
-     * @return
      */
     private Element getStoveElement(int powerVal, int mediaVal) {
         getPower().setValue(powerVal);
@@ -248,20 +279,29 @@ public abstract class SdcSoftDevice implements Serializable {
 
     /**
      * 获取泵元素集合
-     *
-     * @return
      */
     public abstract List<Element> getBeng();
 
     /**
      * 获取风扇元素集合
-     *
-     * @return
      */
     public abstract List<Element> getFan();
 
     public boolean validateFalse(int bytesLength) {
         return BYTE_ARRAY_LENGTH > bytesLength;
+    }
+
+    /**
+     * 设备命令集合
+     */
+    public Map<String,ArrayList<Command>> getCommands() {
+        String modbusNoString = String.format("%02x",getModbusNo());
+        for (ArrayList<Command> cmds : commandsMap.values()){
+            for (Command cmd : cmds){
+                cmd.setModbusNo(modbusNoString);
+            }
+        }
+        return commandsMap;
     }
 
     protected class MyArrayList<E> extends ArrayList<E> {
@@ -284,6 +324,7 @@ public abstract class SdcSoftDevice implements Serializable {
         int Dian = 1;
         int Mei = 2;
         int ShengWuZhi = 3;
+        int YuRe = 30;
     }
 
     public static class DeviceAdapterUtil {
@@ -294,62 +335,46 @@ public abstract class SdcSoftDevice implements Serializable {
         private static HashMap<String, DevicePointMap> maps;
 
         private static String getMediaString(int key) {
-            if (PowerAndMediaMap.coms_media.containsKey(key)) {
-                return PowerAndMediaMap.coms_media.get(key);
+            if (coms_media.containsKey(key)) {
+                return coms_media.get(key);
             }
             return null;
         }
 
         private static String getPowerString(int key) {
-            if (PowerAndMediaMap.coms_power.containsKey(key)) {
-                return PowerAndMediaMap.coms_power.get(key);
+            if (coms_power.containsKey(key)) {
+                return coms_power.get(key);
             }
             return null;
         }
 
-
-        private static DevicePointMap PowerAndMediaMap = null;
         private static String locale = null;
 
         static {
-            devices = new ArrayList(10);
-            maps = new HashMap(5);
+            devices = new ArrayList<SdcSoftDevice>(10);
+            maps = new HashMap<String, DevicePointMap>(5);
         }
 
-        public static void initLocale(String localeName) throws IllegalAccessException, InstantiationException, ClassNotFoundException {
+        public static void initLocale(String localeName){
             locale = getLocaleString(localeName);
-            Class mapClazz = Class.forName(String.format(Locale.CHINA, DEVICE_POWER_MEDIA_MAP_PACKAGE_PATH, locale));
-            PowerAndMediaMap = (DevicePointMap) mapClazz.newInstance();
         }
 
+        @Contract("null -> !null")
         private static String getLocaleString(String localeName) {
             return null == localeName ? "zh_cn." : String.format("%s.", localeName.replace('-', '_'));
         }
 
 
         /**
-         * @Deprecated replace by <code>putDevices(String typeName,String deviceNo,int powerVal,int mediaVal)</code>
-         */
-        @Deprecated
-        public static void putDeviceType(String typeName) throws Exception {
-            putDeviceType(typeName, locale);
-        }
-
-        /**
          * 预加载设备列表，仅适合设备数量较少的应用使用（手机APP）。
-         * 对于展示成百上千的设备而言，不应进行设备预加载操作。
-         *
-         * @param typeName
-         * @param deviceNo
-         * @param powerVal
-         * @param mediaVal
-         * @throws Exception
+         * 对于展示成百上千的设备而言，不应进行设备预加载操作。         *
          */
-        public static void putDevices(String typeName, String deviceNo, int powerVal, int mediaVal) throws Exception {
+        public static SdcSoftDevice putDevices(String typeName, String deviceNo, int powerVal, int mediaVal) throws Exception {
             SdcSoftDevice device = putDevice(typeName, locale);
             device.setDeviceNo(deviceNo);
             device.setPowerVal(powerVal);
             device.setMediaVal(mediaVal);
+            return device;
         }
 
         private static SdcSoftDevice putDevice(String typeName, String LocaleName) throws Exception {
@@ -361,11 +386,10 @@ public abstract class SdcSoftDevice implements Serializable {
             }
             SdcSoftDevice device = (SdcSoftDevice) deviceClazz.newInstance();
             device.setDeviceType(typeName);
+            //初始化commandMap，将点位表中定义的命令集合传入Device对象同时设备命令多语言定义移植到点位表中
+            device.initCommandsMapKeys(maps.get(typeName).getCommandsMap());
             devices.add(device);
             return device;
-        }
-
-        private static void putDeviceType(String typeName, String LocaleName) throws Exception {
         }
 
         public static void clearDevicesType() {
@@ -374,11 +398,8 @@ public abstract class SdcSoftDevice implements Serializable {
         }
 
         /**
-         * 获得设备列表的所有设备数据信息
-         *
-         * @param bytes
-         * @return
-         */
+         * 获得设备列表的所有设备数据信
+         * */
         public static List<SdcSoftDevice> getDevicesByByte(byte[] bytes) throws Exception {
             if (devices.size() < 1) {
                 throw new Exception("请先执行DeviceAdapterUtil.putDevices方法，放入准备用于解析的设备信息。");
@@ -391,11 +412,20 @@ public abstract class SdcSoftDevice implements Serializable {
             return devices;
         }
 
+        /**
+         *  replace by <code>getDeviceByByte(byte[] bytes, SdcSoftDevice device)</code>
+         */
+        @Deprecated
         public static SdcSoftDevice getDeviceByByte(byte[] bytes, String typeName) {
             return getDeviceByByte(bytes, typeName, SdcSoftDevice.POWER_MEDIA_VALUE_NULL, SdcSoftDevice.POWER_MEDIA_VALUE_NULL);
         }
-
-        public static SdcSoftDevice getDeviceByByte(byte[] bytes, String typeName, int powerVal, int mediaVal) {
+        public static SdcSoftDevice getDeviceByByte(byte[] bytes, SdcSoftDevice device) {
+            if(null != device){
+                initDevice(device,bytes,0);
+            }
+            return device;
+        }
+        private static SdcSoftDevice getDeviceByByte(byte[] bytes, String typeName, int powerVal, int mediaVal) {
             SdcSoftDevice device = null;
             try {
                 Class clazz = Class.forName(String.format(Locale.CHINA, STRING_FORMAT_DEVICE_PACKAGE_PATH, typeName));
@@ -410,16 +440,8 @@ public abstract class SdcSoftDevice implements Serializable {
                 if (devicePointMap == null)
                     return null;
                 for (String key : devicePointMap.getPointMap().keySet()) {
-//                    try {
-                    if (key == "_addshuibeng"){
-                        ByteField f = devicePointMap.getPointMap().get(key);
-                        device.handleByteField(f, bytes);
-                    }
-                        ByteField f = devicePointMap.getPointMap().get(key);
-                        device.handleByteField(f, bytes);
-//                    }catch (Exception x){
-//                        x.printStackTrace();
-//                    }
+                    ByteField f = devicePointMap.getPointMap().get(key);
+                    device.handleByteField(f, bytes);
                 }
                 device.setPowerVal(powerVal);
                 device.setMediaVal(mediaVal);
@@ -429,38 +451,42 @@ public abstract class SdcSoftDevice implements Serializable {
             }
             return device;
         }
-
-
-
-        public static void initDevice(SdcSoftDevice device, byte[] bytes, int byteStartIndex) {
+        private static void initDevice(SdcSoftDevice device, byte[] bytes, int byteStartIndex) {
+            initDevice(device, bytes, byteStartIndex, SdcSoftDevice.POWER_MEDIA_VALUE_NULL, SdcSoftDevice.POWER_MEDIA_VALUE_NULL);
+        }
+        private static void initDevice(@NotNull SdcSoftDevice device, @NotNull byte[] bytes, int byteStartIndex, int powerVal, int mediaVal) {
             int endIndex = byteStartIndex + device.getDeviceBytesLength();
-            /**
-             * 校验数据长度有效性
-             */
+            byte[] current;
+           //校验数据长度有效性
             if (bytes.length < endIndex)
                 return;
-            /**
-             * byte 数组裁剪
-             */
-            byte[] current = new byte[device.getDeviceBytesLength()];
+            else if(bytes.length > device.getDeviceBytesLength()){
+                //byte 数组裁剪
 
-            for (int i = 0, j = byteStartIndex; j < endIndex; i++, j++) {
-                current[i] = bytes[j];
+                current = new byte[device.getDeviceBytesLength()];
+                for (int i = 0, j = byteStartIndex; j < endIndex; i++, j++) {
+                    current[i] = bytes[j];
+                }
+            }else {
+                current = bytes;
             }
 
-            /**
-             * 填充设备信息
-             */
+            //填充设备信息
             DevicePointMap devicePointMap = maps.get(device.getDeviceType());
             device.handleDeviceNo(current);
             for (String key : devicePointMap.getPointMap().keySet()) {
+                if(key.equals("_xunhuanbeng")){
+                    System.out.println("fdsa");
+                }
                 ByteField f = devicePointMap.getPointMap().get(key);
                 device.handleByteField(f, current);
             }
+
+            device.setPowerVal(powerVal);
+            device.setMediaVal(mediaVal);
             handlerDevice(device);
         }
-
-        private static void handlerDevice(SdcSoftDevice device) {
+        private static void handlerDevice(@NotNull SdcSoftDevice device) {
             DeviceFieldForUI powerUI = device.getBaseInfoFields().get(SdcSoftDevice.KEY_POINT_POWER);
             DeviceFieldForUI MediaUI = device.getBaseInfoFields().get(SdcSoftDevice.KEY_POINT_MEDIA);
 

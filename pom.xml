@@ -6,9 +6,28 @@
 
     <groupId>cn.com.sdcsoft</groupId>
     <artifactId>devices</artifactId>
-    <version>1.1.1</version>
+    <version>2.1.1 beta</version>
     <packaging>jar</packaging>
+    <description>
+        设备点位表
+        2.1.0 增加控制命令
+    </description>
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all -->
+        <!--<dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>2.5.4</version>
+            <type>pom</type>
+        </dependency>-->
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations-java5</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
 
+    </dependencies>
     <build>
         <finalName>cn.com.sdcsoft.devices</finalName>
     </build>

@@ -3,6 +3,8 @@ package cn.com.sdcsoft.devices.map.en_us;
 
 import cn.com.sdcsoft.devices.SdcSoftDevice;
 import cn.com.sdcsoft.devices.meta.ByteField;
+import cn.com.sdcsoft.devices.meta.CountField;
+import cn.com.sdcsoft.devices.meta.FixedValueField;
 import cn.com.sdcsoft.devices.meta.PLC.*;
 
 /**
@@ -17,16 +19,14 @@ public class DevicePointMap_PLC_RanYouDaoReYou extends DevicePointMap {
         /**
          * 计算属性（不显示）
          */
-        map.put("_zhuyoubeng", ByteField.Init(new DeviceField(), "_zhuyoubeng", 0, 0, "Oil Filling Pump", false));
-        map.put("_xunhuanbeng", ByteField.Init(new DeviceField(), "_xunhuanbeng", 0, 0, "Circulating Pump", false));
+        map.put("_zhuyoubeng", ByteField.Init(new CountField(), "_zhuyoubeng", "Oil Filling Pump"));
+        map.put("_xunhuanbeng", ByteField.Init(new CountField(), "_xunhuanbeng",  "Circulating Pump"));
 
-
-
-        map.put(SdcSoftDevice.KEY_POINT_RUN_HOURS, ByteField.Init(new BaseInfoField(), SdcSoftDevice.KEY_POINT_RUN_HOURS, 9, 2, "Running Hours"));
-        map.put(SdcSoftDevice.KEY_POINT_RUN_DAYS, ByteField.Init(new BaseInfoField(), SdcSoftDevice.KEY_POINT_RUN_DAYS, 11, 2, "Running Days"));
-        map.put(SdcSoftDevice.KEY_POINT_SYSTEM_STATUS, ByteField.Init(new BaseInfoField(), SdcSoftDevice.KEY_POINT_SYSTEM_STATUS, 13, 2, "System State", PLC_Common_ValueMaps.coms_status));
-        map.put(SdcSoftDevice.KEY_POINT_POWER, ByteField.Init(new PowerField(), SdcSoftDevice.KEY_POINT_POWER, 0, 0, "Fuel", DevicePointMap.coms_power));
-        map.put(SdcSoftDevice.KEY_POINT_MEDIA, ByteField.Init(new MediaField(), SdcSoftDevice.KEY_POINT_MEDIA, 2, 0, "Medium", DevicePointMap.coms_media));
+        map.put(KEY_POINT_RUN_HOURS, ByteField.Init(new BaseInfoField(), KEY_POINT_RUN_HOURS, 9, 2, "Running Hours"));
+        map.put(KEY_POINT_RUN_DAYS, ByteField.Init(new BaseInfoField(), KEY_POINT_RUN_DAYS, 11, 2, "Running Days"));
+        map.put(KEY_POINT_SYSTEM_STATUS, ByteField.Init(new BaseInfoField(), KEY_POINT_SYSTEM_STATUS, 13, 2, "System State", PLC_Common_ValueMaps.coms_status));
+        map.put(KEY_POINT_POWER, ByteField.Init(new FixedValueField(), KEY_POINT_POWER,  "Fuel",0,DevicePointMap.coms_power));
+        map.put(KEY_POINT_MEDIA, ByteField.Init(new FixedValueField(), KEY_POINT_MEDIA, "Medium",2, DevicePointMap.coms_media));
         map.put("ba_shuiweizhuangtai", ByteField.Init(new BaseInfoField(), "ba_shuiweizhuangtai", 19, 2, "Water Level State", DevicePointMap.coms_level));
         map.put("ba_ranshaoqizhuangtai", ByteField.Init(new BaseInfoField(), "ba_ranshaoqizhuangtai", 21, 2, "Burner State", PLC_Common_ValueMaps.coms_ranshaoqi_status));
 

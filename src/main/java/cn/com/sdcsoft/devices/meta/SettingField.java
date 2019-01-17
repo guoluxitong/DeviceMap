@@ -1,7 +1,9 @@
 package cn.com.sdcsoft.devices.meta;
 
 
-import cn.com.sdcsoft.devices.SdcSoftDevice; /**
+import cn.com.sdcsoft.devices.SdcSoftDevice;
+
+import static cn.com.sdcsoft.devices.map.DevicePointMap.KEY_SETTING; /**
  * Created by jialiang on 2018/4/20.
  */
 
@@ -14,6 +16,6 @@ public abstract class SettingField extends MockField {
 
     @Override
     public void setDeviceFieldForUIKey(DeviceFieldForUI fieldForUI) {
-        fieldForUI.setKey(SdcSoftDevice.KEY_SETTING);
+        fieldForUI.setKey(KEY_SETTING);
     }
 }

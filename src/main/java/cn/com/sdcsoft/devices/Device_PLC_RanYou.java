@@ -9,7 +9,7 @@ import java.util.List;
 public abstract class Device_PLC_RanYou extends Device_PLC {
 
 
-    private static final String KEY_POINT_RAN_SHAO_QI_STATUS = "ba_ranshaoqizhuangtai";
+    public static final String KEY_POINT_RAN_SHAO_QI_STATUS = "ba_ranshaoqizhuangtai";
 
     @Override
     protected int getPowerInfo()

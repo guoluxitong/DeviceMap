@@ -15,6 +15,16 @@ public class DeviceFieldForUI implements Serializable{
     private String title;
     private String valueString;
 
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    private String unit;
+
     public void setNeedFormat(boolean needFormat) {
         this.needFormat = needFormat;
     }

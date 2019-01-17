@@ -37,7 +37,7 @@ public class Device_CTL_NJRT_T2 extends Device_CTL {
     @Override
     public void handleByteField(ByteField field, byte[] bytes) {
         if (field.haveValue(bytes[field.getStartIndex()], bytes[field.getStartIndex()+1])) {
-            this.AddField(field.getDeviceFieldForUI());
+            this.addField(field);
         }
     }
     @Override
