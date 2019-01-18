@@ -6,8 +6,7 @@ import cn.com.sdcsoft.devices.map.DevicePointMap;
 import cn.com.sdcsoft.devices.meta.ByteField;
 import cn.com.sdcsoft.devices.meta.CommandField;
 import cn.com.sdcsoft.devices.meta.DeviceFieldForUI;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import com.sun.istack.internal.NotNull;
 
 import java.io.Serializable;
 import java.util.*;
@@ -359,7 +358,6 @@ public abstract class SdcSoftDevice implements Serializable {
             locale = getLocaleString(localeName);
         }
 
-        @Contract("null -> !null")
         private static String getLocaleString(String localeName) {
             return null == localeName ? "zh_cn." : String.format("%s.", localeName.replace('-', '_'));
         }

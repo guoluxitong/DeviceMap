@@ -2,7 +2,7 @@ package cn.com.sdcsoft.devices.meta;
 
 import cn.com.sdcsoft.devices.entity.Command;
 import cn.com.sdcsoft.devices.entity.IntCommand;
-import org.jetbrains.annotations.NotNull;
+
 
 import java.util.HashMap;
 
@@ -135,14 +135,14 @@ public abstract class ByteField extends CommandField{
      * @param title
      * @return
      */
-    public static ByteField Init(@NotNull String groupKey, CountShowField field, String name, String title)
+    public static ByteField Init(String groupKey, CountShowField field, String name, String title)
     {
         field.setName(name);
         field.setTitle(title);
         field.groupKey = groupKey;
         return field;
     }
-    public static ByteField Init(@NotNull String groupKey, CountShowField field, String name, String title,String unit)
+    public static ByteField Init(String groupKey, CountShowField field, String name, String title,String unit)
     {
         Init(groupKey,field,name,title);
         field.setUnit(unit);
