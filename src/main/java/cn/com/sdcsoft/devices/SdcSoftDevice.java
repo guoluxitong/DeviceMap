@@ -6,7 +6,6 @@ import cn.com.sdcsoft.devices.map.DevicePointMap;
 import cn.com.sdcsoft.devices.meta.ByteField;
 import cn.com.sdcsoft.devices.meta.CommandField;
 import cn.com.sdcsoft.devices.meta.DeviceFieldForUI;
-import com.sun.istack.internal.NotNull;
 
 import java.io.Serializable;
 import java.util.*;
@@ -104,7 +103,7 @@ public abstract class SdcSoftDevice implements Serializable {
      * 添加数据点位
      * @param field meta数据点位对象
      */
-    void addField(@NotNull ByteField field) {
+    void addField(ByteField field) {
         //需要剔除纯控制程序点位
         addField(field.getDeviceFieldForUI());
         //处理保护执行命令的点位
@@ -310,7 +309,7 @@ public abstract class SdcSoftDevice implements Serializable {
         }
     }
 
-    protected interface Media {
+    public interface Media {
         int ReShui = 0;
         int ZhengQi = 1;
         int DaoReYou = 2;
@@ -318,7 +317,7 @@ public abstract class SdcSoftDevice implements Serializable {
         int ZhenKong = 4;
     }
 
-    protected interface Power {
+    public interface Power {
         int YouQi = 0;
         int Dian = 1;
         int Mei = 2;
@@ -452,7 +451,7 @@ public abstract class SdcSoftDevice implements Serializable {
         private static void initDevice(SdcSoftDevice device, byte[] bytes, int byteStartIndex) {
             initDevice(device, bytes, byteStartIndex, SdcSoftDevice.POWER_MEDIA_VALUE_NULL, SdcSoftDevice.POWER_MEDIA_VALUE_NULL);
         }
-        private static void initDevice(@NotNull SdcSoftDevice device, @NotNull byte[] bytes, int byteStartIndex, int powerVal, int mediaVal) {
+        private static void initDevice(SdcSoftDevice device, byte[] bytes, int byteStartIndex, int powerVal, int mediaVal) {
             int endIndex = byteStartIndex + device.getDeviceBytesLength();
             byte[] current;
            //校验数据长度有效性
@@ -473,18 +472,23 @@ public abstract class SdcSoftDevice implements Serializable {
             DevicePointMap devicePointMap = maps.get(device.getDeviceType());
             device.handleDeviceNo(current);
             for (String key : devicePointMap.getPointMap().keySet()) {
-                if(key.equals("_xunhuanbeng")){
+                if(key.equals(SdcSoftDevice.KEY_POINT_RUN_DAYS)){
                     System.out.println("fdsa");
                 }
-                ByteField f = devicePointMap.getPointMap().get(key);
-                device.handleByteField(f, current);
+                try {
+                    ByteField f = devicePointMap.getPointMap().get(key);
+                    device.handleByteField(f, current);
+                }catch (Exception ex)
+                {
+                    ex.printStackTrace();
+                }
             }
 
             device.setPowerVal(powerVal);
             device.setMediaVal(mediaVal);
             handlerDevice(device);
         }
-        private static void handlerDevice(@NotNull SdcSoftDevice device) {
+        private static void handlerDevice(SdcSoftDevice device) {
             DeviceFieldForUI powerUI = device.getBaseInfoFields().get(SdcSoftDevice.KEY_POINT_POWER);
             DeviceFieldForUI MediaUI = device.getBaseInfoFields().get(SdcSoftDevice.KEY_POINT_MEDIA);
 

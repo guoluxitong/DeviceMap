@@ -1,5 +1,6 @@
-package cn.com.sdcsoft.devices;
+package cn.com.sdcsoft.devices.utils;
 
+import cn.com.sdcsoft.devices.SdcSoftDevice;
 import cn.com.sdcsoft.devices.entity.Command;
 import cn.com.sdcsoft.devices.entity.TimeCommand;
 
@@ -20,6 +21,7 @@ public class AAAA {
 //        str += Command.CRC16Util.getCrc(Command.CRC16Util.calcCrc16(Command.toBytes(str)));
 //        System.out.println(str);
 //    }
+    int i = SdcSoftDevice.Power.Dian;
 }
 
 

@@ -12,7 +12,7 @@ public class DeviceField extends OpenCloseField {
     }
 
     @Override
-    public Object getValue() {
+    public String getValueString() {
         if (null != valueMap)
             return valueMap.get(value);
         return super.getValueString();

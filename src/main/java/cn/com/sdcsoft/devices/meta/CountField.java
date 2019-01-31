@@ -6,7 +6,7 @@ import cn.com.sdcsoft.devices.map.DevicePointMap;
 /**
  * 需要计算但不显示的点位
  */
-public class CountField extends ByteField {
+public class CountField extends CountShowField {
 
 
     @Override

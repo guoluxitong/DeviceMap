@@ -139,7 +139,7 @@ public abstract class ByteField extends CommandField{
     {
         field.setName(name);
         field.setTitle(title);
-        field.groupKey = groupKey;
+        field.setGroupKey(groupKey);
         return field;
     }
     public static ByteField Init(String groupKey, CountShowField field, String name, String title,String unit)

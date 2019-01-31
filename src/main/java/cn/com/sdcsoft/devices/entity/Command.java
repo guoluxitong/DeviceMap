@@ -6,7 +6,7 @@ import cn.com.sdcsoft.devices.meta.DeviceFieldForUI;
 //import groovy.lang.Script;
 //import org.codehaus.groovy.control.CompilerConfiguration;
 import java.io.Serializable;
-import org.jetbrains.annotations.Contract;
+//import org.jetbrains.annotations.Contract;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -139,7 +139,7 @@ public abstract class Command implements Serializable {
         return "";
     }
 
-    @Contract("null -> !null")
+    //@Contract("null -> !null")
     public static byte[] toBytes(String str) {
         if (str != null && str.length() != 0) {
             byte[] bytes = new byte[str.length() / 2];
