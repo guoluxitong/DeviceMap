@@ -9,10 +9,7 @@ import cn.com.sdcsoft.devices.map.DevicePointMap;
 public class CountField extends CountShowField {
 
 
-    @Override
-    public DeviceFieldForUI getDeviceFieldForUI() {
-        return null;
-    }
+
 
     @Override
     public void setDeviceFieldForUIKey(DeviceFieldForUI fieldForUI) {

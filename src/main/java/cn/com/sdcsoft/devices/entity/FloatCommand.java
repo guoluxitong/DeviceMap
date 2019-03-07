@@ -36,7 +36,7 @@ public class FloatCommand extends Command implements Serializable {
     @Override
     public String convertToString() {
         String baseStr =String.format(
-                "%s%s%s000204%s",
+                "%02x%s%s000204%s",
                 getModbusNo(),
                 action,
                 address,

@@ -28,8 +28,8 @@ public class IntCommand extends Command implements Serializable {
     @Override
     public String convertToString() {
         String baseStr =String.format(
-                "%s%s%s%s",
-                String.format("%02x",getModbusNo()),
+                "%02x%s%s%s",
+                getModbusNo(),
                 action,
                 address,
                 value);

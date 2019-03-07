@@ -293,10 +293,9 @@ public abstract class SdcSoftDevice implements Serializable {
      * 设备命令集合
      */
     public Map<String,ArrayList<Command>> getCommands() {
-        String modbusNoString = String.format("%02x",getModbusNo());
         for (ArrayList<Command> cmds : commandsMap.values()){
             for (Command cmd : cmds){
-                cmd.setModbusNo(modbusNoString);
+                cmd.setModbusNo(getModbusNo());
             }
         }
         return commandsMap;
@@ -472,7 +471,7 @@ public abstract class SdcSoftDevice implements Serializable {
             DevicePointMap devicePointMap = maps.get(device.getDeviceType());
             device.handleDeviceNo(current);
             for (String key : devicePointMap.getPointMap().keySet()) {
-                if(key.equals(SdcSoftDevice.KEY_POINT_RUN_DAYS)){
+                if(key.equals("ex_chaoyabaojing_kongzhiqi_")){
                     System.out.println("fdsa");
                 }
                 try {

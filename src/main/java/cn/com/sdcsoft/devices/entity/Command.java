@@ -34,15 +34,15 @@ public abstract class Command implements Serializable {
     protected String valueString;
     protected String value;
 
-    public void setModbusNo(String modbusNo) {
+    public void setModbusNo(int modbusNo) {
         this.modbusNo = modbusNo;
     }
 
-    protected String getModbusNo() {
+    protected int getModbusNo() {
         return modbusNo;
     }
 
-    private String modbusNo;
+    private int modbusNo;
     public void setUnit(String unit) {
         this.unit = unit;
     }

@@ -14,7 +14,7 @@ import static cn.com.sdcsoft.devices.Device_PLC.*;
  * 初始化数据
  */
 public class DevicePointMap_PLC_DianReShui extends DevicePointMap {
-    private static final String Key = "PLC_DianReShui";
+
     private static final String Commands_Key_Parameters_Setting = "参数设置";
     private static final String Commands_Key_System_Ctl = "系统控制";
     public DevicePointMap_PLC_DianReShui() {

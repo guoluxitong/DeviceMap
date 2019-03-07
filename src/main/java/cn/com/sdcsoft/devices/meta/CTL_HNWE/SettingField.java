@@ -1,8 +1,7 @@
-package cn.com.sdcsoft.devices.meta.CTL_NJRT;
+package cn.com.sdcsoft.devices.meta.CTL_HNWE;
 
 
 import cn.com.sdcsoft.devices.SdcSoftDevice;
-import cn.com.sdcsoft.devices.meta.CTL_NJRT.MockField;
 import cn.com.sdcsoft.devices.meta.DeviceFieldForUI;
 
 import java.math.BigInteger;
@@ -18,19 +17,19 @@ public class SettingField extends MockField {
     public void setDeviceFieldForUIKey(DeviceFieldForUI fieldForUI) {
         fieldForUI.setKey(KEY_SETTING);
     }
-    public boolean haveValue(byte... bytes) {
-        BigInteger i = new BigInteger(bytes);
 
-//        if(0x7FFF == i.intValue())
-//            return false;
-
-        if(getBaseNumber() > 0){
-            this.value = i.floatValue()/getBaseNumber();
+        public boolean haveValue(byte... bytes) {
+            BigInteger i = new BigInteger(bytes);
+            if(0x8000 ==Math.abs(i.intValue()) ) {
+                return false;
+            }
+            if(getBaseNumber() > 0){
+                this.value =Math.abs(i.intValue()/getBaseNumber()) ;
+            }
+            else
+            { this.value =Math.abs( i.intValue());}
+            return true;
         }
-        else
-            this.value = i.intValue();
-        return true;
-    }
 
     @Override
     public String getValueString() {

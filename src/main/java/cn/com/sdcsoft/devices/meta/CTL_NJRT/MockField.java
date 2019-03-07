@@ -15,11 +15,10 @@ public class MockField extends cn.com.sdcsoft.devices.meta.MockField {
 //        if(0x7FFF == i.intValue())
 //            return false;
 
-//        if(getBaseNumber() > 0){
-//            this.value = i.floatValue()/getBaseNumber();
-//        }
-//        else
-//            this.value = i.floatValue();
+       if(getBaseNumber() > 0){
+           this.value = i.floatValue()/getBaseNumber();
+       }
+        else
         this.value = i.intValue();
         return true;
     }
