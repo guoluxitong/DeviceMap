@@ -7,7 +7,7 @@ import java.util.*;
 public class Device_PLC_DianReShui extends Device_PLC_Dian {
 
     public Device_PLC_DianReShui() {
-        this.BYTE_ARRAY_LENGTH = 243;
+        this.BYTE_ARRAY_LENGTH = 245;
     }
 
     @Override

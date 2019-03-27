@@ -52,7 +52,7 @@ public class DevicePointMap_CTL_RT_T3_RYZQ_YLBSQ extends DevicePointMap_CTL_RT_T
         map.put("mo_lengningqiyanwen", ByteField.Init(new MockField(), "mo_lengningqiyanwen", 13, 2, "冷凝器烟温","℃"));
         map.put("mo_jishuiwendu", ByteField.Init(new MockField(), "mo_jishuiwendu", 15, 2, "给水温度","℃"));
         map.put("mo_zhengqiyali", ByteField.Init(new MockField(), "mo_zhengqiyali", 17, 2, "蒸汽压力","Mpa",100));
-        map.put("mo_shuiweixinhao", ByteField.Init(new MockField(), "mo_shuiweixinhao", 19, 2, "水位信号"));
+        map.put("mo_shuiweixinhao", ByteField.Init(new MockField(), "mo_shuiweixinhao", 19, 2, "水位信号","%"));
         map.put("mo_paiyanwendu", ByteField.Init(new MockField(), "mo_paiyanwendu", 21, 2, "排烟温度","℃"));
         map.put("mo_jienengqiyanwen", ByteField.Init(new MockField(), "mo_jienengqiyanwen", 23, 2, "节能器烟温","℃"));
 

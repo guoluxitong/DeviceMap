@@ -77,7 +77,6 @@ public class DevicePointMap_CTL_RT_H1_RYRS extends DevicePointMap {
         map.put("oc_ranshaoqibilijianda", ByteField.Init(new OpenCloseField(), "oc_ranshaoqibilijianda", 9, 2, "燃烧器比例增加", 1, coms_open_close));
         map.put("oc_ranshaoqibilijianxiao", ByteField.Init(new OpenCloseField(), "oc_ranshaoqibilijianxiao", 9, 2, "燃烧器比例减小", 2, coms_open_close));
 
-
         map.put(KEY_POINT_Add_SHUI_BENG_1, ByteField.Init(new DeviceField(), KEY_POINT_Add_SHUI_BENG_1, 9, 2, "补水泵主控制", 3, coms_open_close));
         map.put(KEY_POINT_Add_SHUI_BENG_2, ByteField.Init(new DeviceField(), KEY_POINT_Add_SHUI_BENG_2, 9, 2, "补水泵备控制", 4, coms_open_close));
         map.put(KEY_POINT_XUN_HUAN_BENG_1, ByteField.Init(new DeviceField(), KEY_POINT_XUN_HUAN_BENG_1, 9, 2, "循环泵主控制", 5, coms_open_close));
@@ -86,8 +85,6 @@ public class DevicePointMap_CTL_RT_H1_RYRS extends DevicePointMap {
         map.put("mo_chushuiwendu", ByteField.Init(new MockField(), "mo_chushuiwendu", 13, 2, "出水温度", "℃"));
         map.put("mo_huishuiwendu", ByteField.Init(new MockField(), "mo_huishuiwendu", 15, 2, "回水温度", "℃"));
         map.put("mo_paiyanwendu", ByteField.Init(new MockField(), "mo_paiyanwendu", 19, 2, "排烟温度", "℃"));
-
-
 
         map.put("ex_jixiandishuiweibaojing", ByteField.Init(new ExceptionField(), "ex_jixiandishuiweibaojing", 45, 2, "极限低水位报警", 0));
         map.put("ex_chushuiwenduchuanganqiduanlu", ByteField.Init(new ExceptionField(), "ex_chushuiwenduchuanganqiduanlu", 45, 2, "出水温度传感器断路", 1));
@@ -108,7 +105,6 @@ public class DevicePointMap_CTL_RT_H1_RYRS extends DevicePointMap {
         map.put("de_bushuibengshoudongzidong", ByteField.Init(new DeviceField(), "de_bushuibengshoudongzidong", 49, 2, "补水泵", 1, CTL_NJRT_Common_ValueMaps.coms_atuo));
         map.put("de_xunhuanbengzhubei", ByteField.Init(new DeviceField(),"de_xunhuanbengzhubei", 49, 2, "循环泵", 2, CTL_NJRT_Common_ValueMaps.coms_master));
         map.put("de_xunhuanbengshoudongzidong", ByteField.Init(new DeviceField(), "de_xunhuanbengshoudongzidong", 49, 2, "循环泵", 3, CTL_NJRT_Common_ValueMaps.coms_atuo));
-
 
         map.put("se_moshiyishiduan1qidongshi", ByteField.Init(new SettingField(), "se_moshiyishiduan1qidongshi", 61, 2, "模式一时段1启动时", "时", Commands_Key_Parameters_Setting, "00b0", 0, 23));
         map.put("se_moshiyishiduan1qidongfen", ByteField.Init(new SettingField(), "se_moshiyishiduan1qidongfen", 63, 2, "模式一时段1启动分", "分", Commands_Key_Parameters_Setting, "00b1", 0, 59));
@@ -251,6 +247,5 @@ public class DevicePointMap_CTL_RT_H1_RYRS extends DevicePointMap {
         map.put("se_xingcheng", ByteField.Init(new SettingField(), "se_xingcheng", 348, 2, "行程", "", Commands_Key_Parameters_Setting, "013a", 10, 300));
         map.put("se_fangdongshangxianwendu", ByteField.Init(new SettingField(), "se_fangdongshangxianwendu", 352, 2, "防冻上限温度", "℃", Commands_Key_Parameters_Setting, "013c", 10, 30));
         map.put("se_fangdongxiaxianwendu", ByteField.Init(new SettingField(), "se_fangdongxiaxianwendu", 354, 2, "防冻下限温度", "℃", Commands_Key_Parameters_Setting, "013d", 7, 27));
-
         }
 }

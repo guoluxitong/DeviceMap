@@ -6,6 +6,9 @@ import cn.com.sdcsoft.devices.meta.ByteField;
 import cn.com.sdcsoft.devices.meta.CTL_NJRT.*;
 import cn.com.sdcsoft.devices.meta.CountField;
 import cn.com.sdcsoft.devices.meta.CountShowField;
+import cn.com.sdcsoft.devices.meta.FixedValueField;
+
+import java.util.HashMap;
 
 import static cn.com.sdcsoft.devices.Device_CTL_RT_T2.*;
 import static cn.com.sdcsoft.devices.Device_CTL_RT_T2.KEY_POINT_Add_SHUI_BENG_2;
@@ -19,20 +22,31 @@ import static cn.com.sdcsoft.devices.map.en_us.DevicePointMap.CTL_NJRT_Common_Va
 
 public class DevicePointMap_CTL_RT_T2_RYZQ_YLBSQ extends DevicePointMap_CTL_NJRT_T2 {
     public static final String Key = "CTL_RT_T2_RYZQ_YLBSQ";
+    static final String Commands_Key_Parameters_Setting = "参数设置";
+    static final String Commands_Key_System_Ctl = "系统控制";
 
 
     public DevicePointMap_CTL_RT_T2_RYZQ_YLBSQ() {
+        commandsMap.put(Commands_Key_Parameters_Setting,null);
+        commandsMap.put(Commands_Key_System_Ctl,null);
+        HashMap<Integer, String> coms_status = new HashMap() {
+            {
+                put(0, "await orders");
+                put(1, "Alarm status");
+                put(2, "operation");
+            }
+        };
 
-        map.put("_ranshaoqi", ByteField.Init(new CountField(), "_ranshaoqi", 0, 0, "Burner"));
-        map.put("_addshuibeng", ByteField.Init(new CountField(), "_addshuibeng", 0, 0, "Water Feeding Pump"));
-        map.put("_lengningbeng", ByteField.Init(new CountField(), "_lengningbeng", 0, 0, "Condensation Pump"));
+        map.put("_ranshaoqi", ByteField.Init(new CountField(), KEY_POINT_RAN_SHAO_QI, "Burner"));
+        map.put("_addshuibeng", ByteField.Init(new CountField(), KEY_POINT_Add_SHUI_BENG,  "Water Feeding Pump"));
+        map.put("_lengningbeng", ByteField.Init(new CountField(),KEY_POINT_LENG_NING_BENG,"Condensation Pump"));
 
         map.put(SdcSoftDevice.KEY_POINT_SYSTEM_STATUS, ByteField.Init(new BaseInfoField(), SdcSoftDevice.KEY_POINT_SYSTEM_STATUS, 3, 2, "System State", coms_status));
         map.put(SdcSoftDevice.KEY_POINT_RUN_LIFE, ByteField.Init(new BaseInfoField(), SdcSoftDevice.KEY_POINT_RUN_LIFE, 53, 2, "Running Time"));
         map.put(SdcSoftDevice.KEY_POINT_RUN_DAYS, ByteField.Init(KEY_BASE, new CountShowField(), SdcSoftDevice.KEY_POINT_RUN_DAYS,  "Running Days", "Day"));
         map.put(SdcSoftDevice.KEY_POINT_RUN_HOURS, ByteField.Init(KEY_BASE,new CountShowField(), SdcSoftDevice.KEY_POINT_RUN_HOURS, "Running Hours", "Hour"));
-        map.put(SdcSoftDevice.KEY_POINT_POWER, ByteField.Init(new BaseInfoField(), SdcSoftDevice.KEY_POINT_POWER, 87, 2, "Fuel Type", coms_power));
-        map.put(SdcSoftDevice.KEY_POINT_MEDIA, ByteField.Init(new BaseInfoField(), SdcSoftDevice.KEY_POINT_MEDIA, 89, 2, "Medium Type", coms_media));
+        map.put(SdcSoftDevice.KEY_POINT_POWER, ByteField.Init(new FixedValueField(), SdcSoftDevice.KEY_POINT_POWER, "Fuel Type", 0, DevicePointMap.coms_power));
+        map.put(SdcSoftDevice.KEY_POINT_MEDIA, ByteField.Init(new FixedValueField(), SdcSoftDevice.KEY_POINT_MEDIA, "Medium Type", 1, DevicePointMap.coms_media));
 
         map.put("oc_queshuidianji", ByteField.Init(new OpenCloseField(), "oc_queshuidianji", 5, 2, "Lack of water electrode",0,coms_open_close));
         map.put("oc_dishuiweibaojingdianji_6dianjiteyou_", ByteField.Init(new OpenCloseField(), "oc_dishuiweibaojingdianji_6dianjiteyou_", 5, 2, "Low water alarm electrode (6 electrodes are unique)",1,coms_open_close));
@@ -97,16 +111,16 @@ public class DevicePointMap_CTL_RT_T2_RYZQ_YLBSQ extends DevicePointMap_CTL_NJRT
         map.put("se_zuanhuoyali", ByteField.Init(new SettingField(), "se_zuanhuoyali", 113, 2, "Turn the fire pressure","Mpa",100));
         map.put("se_shuchushangxian", ByteField.Init(new SettingField(), "se_shuchushangxian", 117, 2, "Upper limit of output","%"));
         map.put("se_shuchuxiaxian", ByteField.Init(new SettingField(), "se_shuchuxiaxian", 119, 2, "The output threshold","%"));
-        map.put("se_ranshaozhouqi", ByteField.Init(new SettingField(), "se_ranshaozhouqi", 121, 2, "The combustion cycle"));
+        map.put("se_ranshaozhouqi", ByteField.Init(new SettingField(), "se_ranshaozhouqi", 121, 2, "The combustion cycle",""));
         map.put("se_ranshaoP", ByteField.Init(new SettingField(), "se_ranshaoP", 123, 2, "burn  P"));
         map.put("se_ranshaoI", ByteField.Init(new SettingField(), "se_ranshaoI", 125, 2, "burn  I"));
         map.put("se_ranshaoD", ByteField.Init(new SettingField(), "se_ranshaoD", 127, 2, "burn  D"));
         map.put("se_xingcheng", ByteField.Init(new SettingField(), "se_xingcheng", 129, 2, "journey"));
-        map.put("se_gaobaojing", ByteField.Init(new SettingField(), "se_gaobaojing", 131, 2, "High alarm","mm"));
-        map.put("se_gaoshuiwei", ByteField.Init(new SettingField(), "se_gaoshuiwei", 133, 2, "high water level","mm"));
-        map.put("se_dishuiwei", ByteField.Init(new SettingField(), "se_dishuiwei", 135, 2, " low water","mm"));
-        map.put("se_mubiaoshuiwei", ByteField.Init(new SettingField(), "se_mubiaoshuiwei", 137, 2, "Water level of the target","mm"));
-        map.put("se_queshuishuiwei", ByteField.Init(new SettingField(), "se_queshuishuiwei", 139, 2, "Lack of water level","mm"));
+        map.put("se_gaobaojing", ByteField.Init(new SettingField(), "se_gaobaojing", 131, 2, "High alarm"));
+        map.put("se_gaoshuiwei", ByteField.Init(new SettingField(), "se_gaoshuiwei", 133, 2, "high water level","%"));
+        map.put("se_dishuiwei", ByteField.Init(new SettingField(), "se_dishuiwei", 135, 2, " low water","%"));
+        map.put("se_mubiaoshuiwei", ByteField.Init(new SettingField(), "se_mubiaoshuiwei", 137, 2, "Water level of the target","%"));
+        map.put("se_queshuishuiwei", ByteField.Init(new SettingField(), "se_queshuishuiwei", 139, 2, "Lack of water level","%"));
         map.put("se_shuiweizhouqi", ByteField.Init(new SettingField(), "se_shuiweizhouqi", 141, 2, "Water cycle"));
         map.put("se_shuiweip", ByteField.Init(new SettingField(), "se_shuiweip", 143, 2, "water level  p"));
         map.put("se_shuiweiI", ByteField.Init(new SettingField(), "se_shuiweiI", 145, 2, "water level  I"));

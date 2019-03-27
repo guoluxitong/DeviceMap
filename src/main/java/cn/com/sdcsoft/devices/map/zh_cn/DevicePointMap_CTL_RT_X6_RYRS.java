@@ -23,8 +23,8 @@ public class DevicePointMap_CTL_RT_X6_RYRS extends DevicePointMap {
        map.put(SdcSoftDevice.KEY_POINT_RUN_LIFE, ByteField.Init(new BaseInfoField(), SdcSoftDevice.KEY_POINT_RUN_LIFE, 53, 2, "运行时间","时"));
        map.put(SdcSoftDevice.KEY_POINT_RUN_DAYS, ByteField.Init(KEY_BASE, new CountShowField(), SdcSoftDevice.KEY_POINT_RUN_DAYS, "运行天数", "天"));
        map.put(SdcSoftDevice.KEY_POINT_RUN_HOURS, ByteField.Init(KEY_BASE, new CountShowField(), SdcSoftDevice.KEY_POINT_RUN_HOURS, "运行小时数", "时"));
-       map.put(SdcSoftDevice.KEY_POINT_POWER, ByteField.Init(new FixedValueField(), SdcSoftDevice.KEY_POINT_POWER, 0, 0, "燃料类型", coms_power));
-       map.put(SdcSoftDevice.KEY_POINT_MEDIA, ByteField.Init(new FixedValueField(), SdcSoftDevice.KEY_POINT_MEDIA, 1, 0, "介质类型", coms_media));
+       map.put(SdcSoftDevice.KEY_POINT_POWER, ByteField.Init(new FixedValueField(), SdcSoftDevice.KEY_POINT_POWER, "燃料类型", 0, DevicePointMap.coms_power));
+       map.put(SdcSoftDevice.KEY_POINT_MEDIA, ByteField.Init(new FixedValueField(), SdcSoftDevice.KEY_POINT_MEDIA, "介质类型", 0, DevicePointMap.coms_media));
 
        map.put("de_bushuibeng_shoudong/zidong_", ByteField.Init(new DeviceField(), "de_bushuibeng_shoudong/zidong_", 49, 2, "补水泵",1, CTL_NJRT_Common_ValueMaps.coms_atuo));
        map.put("de_xunhuanbeng_zidong/shoudong_", ByteField.Init(new DeviceField(), "de_xunhuanbeng_zidong/shoudong_", 49, 2, "循环泵",3, CTL_NJRT_Common_ValueMaps.coms_atuo));
@@ -56,8 +56,8 @@ public class DevicePointMap_CTL_RT_X6_RYRS extends DevicePointMap {
        map.put("oc_NC4", ByteField.Init(new OpenCloseField(), "oc_NC", 5, 2, "NC",10));
        map.put(KEY_POINT_RAN_SHAO_QI_KONGZHI, ByteField.Init(new OpenCloseField(), KEY_POINT_RAN_SHAO_QI_KONGZHI, 9, 2, "燃烧器启停控制",0));
        map.put(KEY_POINT_RAN_SHAO_QI_STATUS, ByteField.Init(new OpenCloseField(), KEY_POINT_RAN_SHAO_QI_STATUS, 9, 2, "燃烧器负荷调节",1));
-       map.put(KEY_POINT_Add_SHUI_BENG_1, ByteField.Init(new DeviceField(), KEY_POINT_Add_SHUI_BENG_1, 9, 2, "补水泵输出",2));
-       map.put(KEY_POINT_XUN_HUAN_BENG_1, ByteField.Init(new DeviceField(), KEY_POINT_XUN_HUAN_BENG_1, 9, 2, "循环泵输出",3));
+       map.put(KEY_POINT_Add_SHUI_BENG_1, ByteField.Init(new DeviceField(), KEY_POINT_Add_SHUI_BENG_1, 9, 2, "补水泵输出",2,coms_open_close));
+       map.put(KEY_POINT_XUN_HUAN_BENG_1, ByteField.Init(new DeviceField(), KEY_POINT_XUN_HUAN_BENG_1, 9, 2, "循环泵输出",3,coms_open_close));
        map.put("oc_NC5", ByteField.Init(new OpenCloseField(), "oc_NC", 9, 2, "NC",4));
        map.put("oc_baojingzhuangtaishuchu", ByteField.Init(new OpenCloseField(), "oc_baojingzhuangtaishuchu", 9, 2, "报警状态输出",5));
        map.put("oc_NC6", ByteField.Init(new OpenCloseField(), "oc_NC", 9, 2, "NC",6));

@@ -41,14 +41,12 @@ public class DevicePointMap_CTL_HNWE_485 extends DevicePointMap {
                put(12, "防冻模式");
            }
        };
-
        HashMap<Integer, String> coms_error = new HashMap() {
            {
                put(0, "Esys控制器");
                put(1, "显示板");
            }
        };
-
        HashMap<Integer, String> coms_biaozhi = new HashMap() {
            {
                put(0, "阻塞");
@@ -135,7 +133,7 @@ public class DevicePointMap_CTL_HNWE_485 extends DevicePointMap {
 //
        map.put("mo_jiarexuqiu", ByteField.Init(new DemandField(), "mo_jiarexuqiu", 19, 1, "加热需求",coms_xuqiu));
 
-       map.put("mo_shedingzhi", ByteField.Init(new SettingField(), "mo_shedingzhi", 22, 2, "设定值","",Commands_Key_Parameters_Setting, "0515", 10, 95));
+       map.put("mo_shedingzhi", ByteField.Init(new SettingField(), "mo_shedingzhi", 22, 2, "设定值","",Commands_Key_Parameters_Setting, "0202", 10, 95));
        map.put("mo_CHgongshuiwendu", ByteField.Init(new MockField(), "mo_CHgongshuiwendu", 29, 2, "CH供水温度","℃",10));
        map.put("mo_CHhuishuiwendu", ByteField.Init(new MockField(), "mo_CHhuishuiwendu", 31, 2, "CH回水温度","℃"));
        map.put("de_yanwen", ByteField.Init(new MockField(), "de_yanwen", 35, 2, "烟温","℃"));
@@ -144,7 +142,7 @@ public class DevicePointMap_CTL_HNWE_485 extends DevicePointMap {
        map.put("mo_huoyandianliu", ByteField.Init(new MockField(), "mo_huoyandianliu", 41, 2, "火焰电流","uA"));
        map.put("mo_diaojieshuiping", ByteField.Init(new MockField(), "mo_diaojieshuiping", 43, 2, "调节水平"));
        map.put("mo_jisuanhoudeshedingzhi", ByteField.Init(new MockField(), "mo_jisuanhoudeshedingzhi", 45, 2, "计算后的设定值"));
-       map.put("mo_CHzuidashedingzhi", ByteField.Init(new SettingField(), "mo_CHzuidashedingzhi", 52, 2, "CH最大设定值","",Commands_Key_Parameters_Setting, "1281", 20, 95));
+       map.put("mo_CHzuidashedingzhi", ByteField.Init(new SettingField(), "mo_CHzuidashedingzhi", 52, 2, "CH最大设定值","",Commands_Key_Parameters_Setting, "0500", 20, 95));
 
        map.put("oc_ceshimoshi", ByteField.Init(new OpenCloseField(), "oc_ceshimoshi", 12, 1, "测试模式",coms_open_close));
        map.put("oc_CHmoshi", ByteField.Init(new OpenCloseField(), "oc_CHmoshi", 12, 1, "CH模式",2,coms_open_close));

@@ -107,7 +107,11 @@ public abstract class ByteField extends CommandField{
         DeviceFieldForUI fieldForUI = new DeviceFieldForUI();
         setDeviceFieldForUIKey(fieldForUI);
         fieldForUI.setName(getName());
-        fieldForUI.setTitle(getTitle());
+        if (getTitle().equals("报警")){
+            fieldForUI.setTitle(getValueString());
+        }else{
+            fieldForUI.setTitle(getTitle());
+        }
         fieldForUI.setValue(getValue());
         fieldForUI.setValueString(getValueString());
         fieldForUI.setNeedFormat(needFormat);
@@ -120,7 +124,11 @@ public abstract class ByteField extends CommandField{
         DeviceFieldForUI fieldForUI = new DeviceFieldForUI();
         setDeviceFieldForUIKey(fieldForUI);
         fieldForUI.setName(getName());
-        fieldForUI.setTitle(getTitle());
+        if (getTitle().equals("报警")){
+            fieldForUI.setTitle(getValueString());
+        }else{
+            fieldForUI.setTitle(getTitle());
+        }
         fieldForUI.setValue(value);
         fieldForUI.setValueString(getValueString());
         fieldForUI.setNeedFormat(needFormat);

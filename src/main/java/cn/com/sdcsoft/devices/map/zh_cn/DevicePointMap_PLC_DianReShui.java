@@ -55,7 +55,6 @@ public class DevicePointMap_PLC_DianReShui extends DevicePointMap {
         map.put("se_xunhuanbengshangxianwendusheding", ByteField.Init(new SettingField(), "se_xunhuanbengshangxianwendusheding", 171, 4, "循环泵上限温度设定", "℃"));
         map.put("se_xunhuanbengxiaxianwendusheding", ByteField.Init(new SettingField(), "se_xunhuanbengxiaxianwendusheding", 175, 4, "循环泵下限温度设定", "℃"));
 
-
         map.put("de_1_addshuibeng_auto", ByteField.Init(new DeviceField(), "de_1_addshuibeng_auto", 199, 2, "1#补水泵", PLC_Common_ValueMaps.coms_atuo));
         map.put(KEY_POINT_Add_SHUI_BENG_1, ByteField.Init(new DeviceField(), KEY_POINT_Add_SHUI_BENG_1, 201, 2, "1#补水泵", DevicePointMap.coms_start_stop));
         map.put("de_2_addshuibeng_auto", ByteField.Init(new DeviceField(), "de_2_addshuibeng_auto", 203, 2, "2#补水泵", PLC_Common_ValueMaps.coms_atuo));
@@ -85,7 +84,6 @@ public class DevicePointMap_PLC_DianReShui extends DevicePointMap {
         map.put("ex_Axiangguoliubaojing", ByteField.Init(new ExceptionField(), "ex_Axiangguoliubaojing", 235, 2, "A相过流报警", 8));
         map.put("ex_Bxiangguoliubaojing", ByteField.Init(new ExceptionField(), "ex_Bxiangguoliubaojing", 235, 2, "B相过流报警", 9));
         map.put("ex_Cxiangguoliubaojing", ByteField.Init(new ExceptionField(), "ex_Cxiangguoliubaojing", 235, 2, "C相过流报警", 10));
-
 
         map.put("oc_1#jiarezu", ByteField.Init(new OpenCloseField(), "oc_1#jiarezu", 237, 2, "1#加热组反馈", 1));
         map.put("oc_2#jiarezu", ByteField.Init(new OpenCloseField(), "oc_2#jiarezu", 237, 2, "2#加热组反馈", 1));
@@ -119,8 +117,6 @@ public class DevicePointMap_PLC_DianReShui extends DevicePointMap {
         map.put("oc_30#jiarezu", ByteField.Init(new OpenCloseField(), "oc_30#jiarezu", 239, 2, "30#加热组反馈", 1));
         map.put("oc_31#jiarezu", ByteField.Init(new OpenCloseField(), "oc_31#jiarezu", 239, 2, "31#加热组反馈", 1));
         map.put("oc_32#jiarezu", ByteField.Init(new OpenCloseField(), "oc_32#jiarezu", 239, 2, "32#加热组反馈", 1));
-
-
     }
 }
 

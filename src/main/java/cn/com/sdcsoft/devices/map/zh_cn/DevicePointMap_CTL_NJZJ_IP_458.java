@@ -635,7 +635,7 @@ public class DevicePointMap_CTL_NJZJ_IP_458 extends DevicePointMap {
         map.put("se_bentipaiyanwendu", ByteField.Init(new SettingField(), "se_bentipaiyanwendu", 1112, 2, "本体排烟温度", "℃"));
         map.put("se_jiarezushu", ByteField.Init(new SettingField(), "se_jiarezushu", 1114, 2, "加热组数", "组", Commands_Key_Parameters_Setting, "0517", 1, 100));
         map.put("se_jianceyalishijian", ByteField.Init(new SettingField(), "se_jianceyalishijian", 1116, 2, "检测压力时间", "s"));
-        map.put("se_houyanshi", ByteField.Init(new SettingField(), "se_houyanshi", 1118, 2, "后延时", "m"));
+        map.put("se_houyanshi1", ByteField.Init(new SettingField(), "se_houyanshi1", 1118, 2, "后延时", "m"));
         map.put("se_shedingwendu", ByteField.Init(new SettingField(), "se_shedingwendu", 1120, 2, "设定温度", "℃"));
         map.put("se_mokuailutaishu", ByteField.Init(new SettingField(), "se_mokuailutaishu", 1122, 2, "模块炉台数", "台"));
         map.put("se_gufenghouyanshi", ByteField.Init(new SettingField(), "se_gufenghouyanshi", 1124, 2, "鼓风后延时", "s"));

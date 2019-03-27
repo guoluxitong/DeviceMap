@@ -14,12 +14,10 @@ import static cn.com.sdcsoft.devices.Device_CTL_RT_T2.*;
 import static cn.com.sdcsoft.devices.map.zh_cn.DevicePointMap.CTL_NJRT_Common_ValueMaps.*;
 
 public class DevicePointMap_CTL_RT_T2_RYZQ_YLKZQ extends DevicePointMap_CTL_RT_T2_RYZQ {
-    static final String Commands_Key_Parameters_Setting = "参数设置";
-    static final String Commands_Key_System_Ctl = "系统控制";
+    public static final String Key = "CTL_RT_T2_RYZQ_YLKZQ";
 //01030010004f05fb
     public DevicePointMap_CTL_RT_T2_RYZQ_YLKZQ() {
-        commandsMap.put(Commands_Key_Parameters_Setting,null);
-        commandsMap.put(Commands_Key_System_Ctl,null);
+
         HashMap<Integer, String> coms_status = new HashMap() {
             {
                 put(0, "待命");
@@ -64,7 +62,7 @@ public class DevicePointMap_CTL_RT_T2_RYZQ_YLKZQ extends DevicePointMap_CTL_RT_T
 
         map.put("mo_lengningqiyanwen", ByteField.Init(new MockField(), "mo_lengningqiyanwen", 13, 2, "冷凝器烟温","℃"));
         map.put("mo_jishuiwendu", ByteField.Init(new MockField(), "mo_jishuiwendu", 15, 2, "给水温度","℃"));
-        map.put("mo_shuiweixinhao", ByteField.Init(new MockField(), "mo_shuiweixinhao", 19, 2, "水位信号"));
+        map.put("mo_shuiweixinhao", ByteField.Init(new MockField(), "mo_shuiweixinhao", 19, 2, "水位信号","%"));
         map.put("mo_paiyanwendu", ByteField.Init(new MockField(), "mo_paiyanwendu", 21, 2, "排烟温度","℃"));
         map.put("mo_jienengqiyanwen", ByteField.Init(new MockField(), "mo_jienengqiyanwen", 23, 2, "节能器烟温","℃"));
 
@@ -89,27 +87,27 @@ public class DevicePointMap_CTL_RT_T2_RYZQ_YLKZQ extends DevicePointMap_CTL_RT_T
         map.put("ex_ranshaoqiguzhang", ByteField.Init(new ExceptionField(), "ex_ranshaoqiguzhang", 47, 2, "燃烧器故障",1));
         map.put("ex_jixiandishuiweibaojing2", ByteField.Init(new ExceptionField(), "ex_jixiandishuiweibaojing2", 47, 2, "极限低水位报警2",4));
 
-        map.put("se_paiyanchaowen", ByteField.Init(new SettingField(), "se_paiyanchaowen", 107, 2, "排烟超温","℃", Commands_Key_Parameters_Setting, "0118", 100, 400));
+        map.put("se_paiyanchaowen", ByteField.Init(new SettingField(), "se_paiyanchaowen", 107, 2, "排烟超温","℃"));
         map.put("se_chaoyabaojing", ByteField.Init(new SettingField(), "se_chaoyabaojing", 109, 2, "超压报警","Mpa",100));
         map.put("se_tingluyali", ByteField.Init(new SettingField(), "se_tingluyali", 111, 2, "停炉压力","Mpa",100));
         map.put("se_qiluyali", ByteField.Init(new SettingField(), "se_qiluyali", 115, 2, "启炉压力","Mpa",100));
         map.put("se_zuanhuoyali", ByteField.Init(new SettingField(), "se_zuanhuoyali", 113, 2, "转火压力","Mpa",100));
-        map.put("se_shuchushangxian", ByteField.Init(new SettingField(), "se_shuchushangxian", 117, 2, "输出上限","%", Commands_Key_Parameters_Setting, "0123", 0, 100));
-        map.put("se_shuchuxiaxian", ByteField.Init(new SettingField(), "se_shuchuxiaxian", 119, 2, "输出下限","%", Commands_Key_Parameters_Setting, "0124", 0, 100));
-        map.put("se_ranshaozhouqi", ByteField.Init(new SettingField(), "se_ranshaozhouqi", 121, 2, "燃烧  周期","", Commands_Key_Parameters_Setting, "0125", 1, 3600));
-        map.put("se_ranshaoP", ByteField.Init(new SettingField(), "se_ranshaoP", 123, 2, "燃烧  P","", Commands_Key_Parameters_Setting, "0126", 1, 1000));
-        map.put("se_ranshaoI", ByteField.Init(new SettingField(), "se_ranshaoI", 125, 2, "燃烧  I","", Commands_Key_Parameters_Setting, "0127", 1, 3600));
-        map.put("se_ranshaoD", ByteField.Init(new SettingField(), "se_ranshaoD", 127, 2, "燃烧  D","", Commands_Key_Parameters_Setting, "0128", 0, 20));
-        map.put("se_xingcheng", ByteField.Init(new SettingField(), "se_xingcheng", 129, 2, "行程","", Commands_Key_Parameters_Setting, "0129", 10, 300));
-        map.put("se_gaobaojing", ByteField.Init(new SettingField(), "se_gaobaojing", 131, 2, "高报警","%", Commands_Key_Parameters_Setting, "0130", 0, 100));
-        map.put("se_gaoshuiwei", ByteField.Init(new SettingField(), "se_gaoshuiwei", 133, 2, "高水位","%", Commands_Key_Parameters_Setting, "0131", 0, 100));
-        map.put("se_dishuiwei", ByteField.Init(new SettingField(), "se_dishuiwei", 135, 2, "低水位","%", Commands_Key_Parameters_Setting, "0132", 0, 100));
-        map.put("se_mubiaoshuiwei", ByteField.Init(new SettingField(), "se_mubiaoshuiwei", 137, 2, "目标水位","%", Commands_Key_Parameters_Setting, "0133", 0, 100));
-        map.put("se_queshuishuiwei", ByteField.Init(new SettingField(), "se_queshuishuiwei", 139, 2, "缺水水位","%", Commands_Key_Parameters_Setting, "0134", 0, 100));
-        map.put("se_shuiweizhouqi", ByteField.Init(new SettingField(), "se_shuiweizhouqi", 141, 2, "水位  周期","", Commands_Key_Parameters_Setting, "0135", 1, 3600));
-        map.put("se_shuiweip", ByteField.Init(new SettingField(), "se_shuiweip", 143, 2, "水位  p","", Commands_Key_Parameters_Setting, "0136", 1, 1000));
-        map.put("se_shuiweiI", ByteField.Init(new SettingField(), "se_shuiweiI", 145, 2, "水位  I","", Commands_Key_Parameters_Setting, "0137", 1, 3600));
-        map.put("se_shuiweiD", ByteField.Init(new SettingField(), "se_shuiweiD", 147, 2, "水位  D","", Commands_Key_Parameters_Setting, "0138", 0, 20));
+        map.put("se_shuchushangxian", ByteField.Init(new SettingField(), "se_shuchushangxian", 117, 2, "输出上限","%"));
+        map.put("se_shuchuxiaxian", ByteField.Init(new SettingField(), "se_shuchuxiaxian", 119, 2, "输出下限","%"));
+        map.put("se_ranshaozhouqi", ByteField.Init(new SettingField(), "se_ranshaozhouqi", 121, 2, "燃烧  周期"));
+        map.put("se_ranshaoP", ByteField.Init(new SettingField(), "se_ranshaoP", 123, 2, "燃烧  P",""));
+        map.put("se_ranshaoI", ByteField.Init(new SettingField(), "se_ranshaoI", 125, 2, "燃烧  I"));
+        map.put("se_ranshaoD", ByteField.Init(new SettingField(), "se_ranshaoD", 127, 2, "燃烧  D"));
+        map.put("se_xingcheng", ByteField.Init(new SettingField(), "se_xingcheng", 129, 2, "行程"));
+        map.put("se_gaobaojing", ByteField.Init(new SettingField(), "se_gaobaojing", 131, 2, "高报警","%"));
+        map.put("se_gaoshuiwei", ByteField.Init(new SettingField(), "se_gaoshuiwei", 133, 2, "高水位","%"));
+        map.put("se_dishuiwei", ByteField.Init(new SettingField(), "se_dishuiwei", 135, 2, "低水位","%"));
+        map.put("se_mubiaoshuiwei", ByteField.Init(new SettingField(), "se_mubiaoshuiwei", 137, 2, "目标水位","%"));
+        map.put("se_queshuishuiwei", ByteField.Init(new SettingField(), "se_queshuishuiwei", 139, 2, "缺水水位","%"));
+        map.put("se_shuiweizhouqi", ByteField.Init(new SettingField(), "se_shuiweizhouqi", 141, 2, "水位  周期"));
+        map.put("se_shuiweip", ByteField.Init(new SettingField(), "se_shuiweip", 143, 2, "水位  p"));
+        map.put("se_shuiweiI", ByteField.Init(new SettingField(), "se_shuiweiI", 145, 2, "水位  I"));
+        map.put("se_shuiweiD", ByteField.Init(new SettingField(), "se_shuiweiD", 147, 2, "水位  D"));
         map.put("se_chongxiyanshi", ByteField.Init(new SettingField(), "se_chongxiyanshi", 157, 2, "冲洗延时","S"));
         map.put("se_zhuanhuohuicha", ByteField.Init(new SettingField(), "se_zhuanhuohuicha", 159, 2, "转火回差","Mpa",100));
     }
