@@ -20,6 +20,7 @@ public class Device_CTL_RT_T2 extends Device_CTL {
 
     public static final String KEY_POINT_LENG_NING_BENG = "_lengningbeng";
     public static final String KEY_POINT_LENG_NING_BENG_1 = "oc_1_lengningxunhuanbeng_start_stop";
+    public static final String KEY_POINT_LENG_NING_BENG_2 = "oc_2_lengningxunhuanbeng_start_stop";
 
     /**
      * 485点位读取指令
@@ -124,19 +125,35 @@ public class Device_CTL_RT_T2 extends Device_CTL {
             element.setTitle(deviceFieldForUI.getTitle());
             element.setPrefix(Element.Prefix_Beng);
 
-            DeviceFieldForUI d1 = null;
+            DeviceFieldForUI d1 = null,d2 = null;
             int count = 0;
             if (getDeviceFields().containsKey(KEY_POINT_LENG_NING_BENG_1))
             {
                 d1 = getDeviceFields().get(KEY_POINT_LENG_NING_BENG_1);
                 count = 1;
             }
-            int v1 = 0;
+            if (getDeviceFields().containsKey(KEY_POINT_LENG_NING_BENG_2))
+            {
+                d2 = getDeviceFields().get(KEY_POINT_LENG_NING_BENG_2);
+                count += 2;
+            }
+            int v1 = 0, v2 = 0;
             switch (count)
             {
                 case 1:
                     v1 = (Integer) d1.getValue() > 0 ? 1 : 0;
                     element.SetValues(Element.Index_Beng_Count, 1, v1);
+                    list.add(element);
+                    break;
+                case 2:
+                    v2 = (Integer)d2.getValue() > 0 ? 1 : 0;
+                    element.SetValues(Element.Index_Beng_Count, 1, v2);
+                    list.add(element);
+                    break;
+                case 3:
+                    v1 = (Integer)d1.getValue() > 0 ? 1 : 0;
+                    v2 = (Integer)d2.getValue() > 0 ? 2 : 0;
+                    element.SetValues(Element.Index_Beng_Count, 2, v1 + v2);
                     list.add(element);
                     break;
             }

@@ -11,7 +11,6 @@ import cn.com.sdcsoft.devices.meta.FixedValueField;
 import java.util.HashMap;
 
 import static cn.com.sdcsoft.devices.Device_CTL_RT_H1_RY.*;
-import static cn.com.sdcsoft.devices.map.zh_cn.DevicePointMap.CTL_NJRT_Common_ValueMaps.coms_ranshaoqi_status;
 
 
 // Created by 赵龙 on 2018/12/21
@@ -53,7 +52,7 @@ public class DevicePointMap_CTL_RT_H1_RYRS extends DevicePointMap {
         map.put(Device_CTL_RT_H1_RY.KEY_POINT_RAN_SHAO_QI, ByteField.Init(new CountField(), Device_CTL_RT_H1_RY.KEY_POINT_RAN_SHAO_QI,   "燃烧器"));
 
 
-        map.put(KEY_POINT_SYSTEM_STATUS, ByteField.Init(new BaseInfoField(), KEY_POINT_SYSTEM_STATUS, 3, 2, "控制器状态", coms_status));
+        map.put(KEY_POINT_SYSTEM_STATUS, ByteField.Init(new SystemStatusField(), KEY_POINT_SYSTEM_STATUS, 3, 2, "控制器状态", coms_status, Commands_Key_System_Ctl, "00a0", 1, 2));
         map.put(SdcSoftDevice.KEY_POINT_RUN_LIFE, ByteField.Init(new BaseInfoField(), SdcSoftDevice.KEY_POINT_RUN_LIFE, 53, 2, "累计燃烧时间", "时"));
         map.put(SdcSoftDevice.KEY_POINT_RUN_DAYS, ByteField.Init(KEY_BASE, new CountShowField(), SdcSoftDevice.KEY_POINT_RUN_DAYS, "运行天数", "天"));
         map.put(SdcSoftDevice.KEY_POINT_RUN_HOURS, ByteField.Init(KEY_BASE, new CountShowField(), SdcSoftDevice.KEY_POINT_RUN_HOURS, "运行小时数", "时"));
@@ -67,19 +66,19 @@ public class DevicePointMap_CTL_RT_H1_RYRS extends DevicePointMap {
         map.put("oc_dianjiedianyalibiaodizhen", ByteField.Init(new OpenCloseField(), "oc_dianjiedianyalibiaodizhen", 5, 2, "电接点压力表低针", 4, coms_open_close));
         map.put("oc_dianjiedianyalibiaogaozhen", ByteField.Init(new OpenCloseField(), "oc_dianjiedianyalibiaogaozhen", 5, 2, "电接点压力表高针", 5, coms_open_close));
         map.put("oc_xunhuanbengliansuoxinhao", ByteField.Init(new OpenCloseField(), "oc_xunhuanbengliansuoxinhao", 5, 2, "循环泵联锁信号", 8, coms_open_close));
-        map.put("oc_chaoyabaojingxinhao", ByteField.Init(new OpenCloseField(), "oc_chaoyabaojingxinhao", 5, 2, "超压报警信号", 9, coms_open_close));
+        map.put("oc_chaoyabaojin  gxinhao", ByteField.Init(new OpenCloseField(), "oc_chaoyabaojingxinhao", 5, 2, "超压报警信号", 9, coms_open_close));
         map.put("oc_ranshaoqiguzhangxinhao", ByteField.Init(new OpenCloseField(), "oc_ranshaoqiguzhangxinhao", 5, 2, "燃烧器故障信号", 10, coms_open_close));
         map.put("oc_ranqiyalidibaojingxinhao", ByteField.Init(new OpenCloseField(), "oc_ranqiyalidibaojingxinhao", 5, 2, "燃气压力低报警信号", 11, coms_open_close));
         map.put("oc_ranqixieloubaojingxinhao", ByteField.Init(new OpenCloseField(), "oc_ranqixieloubaojingxinhao", 5, 2, "燃气泄漏报警信号", 12, coms_open_close));
 
-        map.put(KEY_POINT_RAN_SHAO_QI_KONGZHI, ByteField.Init(new DeviceField(), KEY_POINT_RAN_SHAO_QI_KONGZHI, 9, 2, "燃烧器启停控制",0,coms_open_close));
+        map.put(KEY_POINT_RAN_SHAO_QI_KONGZHI, ByteField.Init(new DeviceField(), KEY_POINT_RAN_SHAO_QI_KONGZHI, 9, 2, "燃烧器启停控制",0,coms_open_close, Commands_Key_System_Ctl, "00a0", 5, 8));
         //map.put(KEY_POINT_RAN_SHAO_QI_STATUS, ByteField.Init(new CountField(), KEY_POINT_RAN_SHAO_QI_STATUS, "燃烧器状态"));
         map.put("oc_ranshaoqibilijianda", ByteField.Init(new OpenCloseField(), "oc_ranshaoqibilijianda", 9, 2, "燃烧器比例增加", 1, coms_open_close));
         map.put("oc_ranshaoqibilijianxiao", ByteField.Init(new OpenCloseField(), "oc_ranshaoqibilijianxiao", 9, 2, "燃烧器比例减小", 2, coms_open_close));
 
-        map.put(KEY_POINT_Add_SHUI_BENG_1, ByteField.Init(new DeviceField(), KEY_POINT_Add_SHUI_BENG_1, 9, 2, "补水泵主控制", 3, coms_open_close));
+        map.put(KEY_POINT_Add_SHUI_BENG_1, ByteField.Init(new DeviceField(), KEY_POINT_Add_SHUI_BENG_1, 9, 2, "补水泵主控制", 3, coms_open_close, Commands_Key_System_Ctl, "00a0", 100, 101));
         map.put(KEY_POINT_Add_SHUI_BENG_2, ByteField.Init(new DeviceField(), KEY_POINT_Add_SHUI_BENG_2, 9, 2, "补水泵备控制", 4, coms_open_close));
-        map.put(KEY_POINT_XUN_HUAN_BENG_1, ByteField.Init(new DeviceField(), KEY_POINT_XUN_HUAN_BENG_1, 9, 2, "循环泵主控制", 5, coms_open_close));
+        map.put(KEY_POINT_XUN_HUAN_BENG_1, ByteField.Init(new DeviceField(), KEY_POINT_XUN_HUAN_BENG_1, 9, 2, "循环泵主控制", 5, coms_open_close, Commands_Key_System_Ctl, "00a0", 106, 107));
         map.put(KEY_POINT_XUN_HUAN_BENG_2, ByteField.Init(new DeviceField(), KEY_POINT_XUN_HUAN_BENG_2, 9, 2, "循环泵备控制", 6, coms_open_close));
 
         map.put("mo_chushuiwendu", ByteField.Init(new MockField(), "mo_chushuiwendu", 13, 2, "出水温度", "℃"));
@@ -101,10 +100,10 @@ public class DevicePointMap_CTL_RT_H1_RYRS extends DevicePointMap {
         map.put("ex_gaoshuiweibaojing", ByteField.Init(new ExceptionField(), "ex_gaoshuiweibaojing", 45, 2, "高水位报警", 13));
         map.put("ex_xunhuanbengguzhang", ByteField.Init(new ExceptionField(), "ex_xunhuanbengguzhang", 45, 2, "循环泵故障", 14));
 
-        map.put("de_bushuibengzhubei", ByteField.Init(new DeviceField(), "de_bushuibengzhubei", 49, 2, "补水泵", 0, CTL_NJRT_Common_ValueMaps.coms_master));
-        map.put("de_bushuibengshoudongzidong", ByteField.Init(new DeviceField(), "de_bushuibengshoudongzidong", 49, 2, "补水泵", 1, CTL_NJRT_Common_ValueMaps.coms_atuo));
-        map.put("de_xunhuanbengzhubei", ByteField.Init(new DeviceField(),"de_xunhuanbengzhubei", 49, 2, "循环泵", 2, CTL_NJRT_Common_ValueMaps.coms_master));
-        map.put("de_xunhuanbengshoudongzidong", ByteField.Init(new DeviceField(), "de_xunhuanbengshoudongzidong", 49, 2, "循环泵", 3, CTL_NJRT_Common_ValueMaps.coms_atuo));
+        map.put("de_bushuibengzhubei", ByteField.Init(new DeviceField(), "de_bushuibengzhubei", 49, 2, "补水泵", 0, CTL_NJRT_Common_ValueMaps.coms_master, Commands_Key_System_Ctl, "00a0", 104, 105));
+        map.put("de_bushuibengshoudongzidong", ByteField.Init(new DeviceField(), "de_bushuibengshoudongzidong", 49, 2, "补水泵", 1, CTL_NJRT_Common_ValueMaps.coms_atuo, Commands_Key_System_Ctl, "00a0", 102, 103));
+        map.put("de_xunhuanbengzhubei", ByteField.Init(new DeviceField(),"de_xunhuanbengzhubei", 49, 2, "循环泵", 2, CTL_NJRT_Common_ValueMaps.coms_master, Commands_Key_System_Ctl, "00a0", 110, 111));
+        map.put("de_xunhuanbengshoudongzidong", ByteField.Init(new DeviceField(), "de_xunhuanbengshoudongzidong", 49, 2, "循环泵", 3, CTL_NJRT_Common_ValueMaps.coms_atuo, Commands_Key_System_Ctl, "00a0", 108, 109));
 
         map.put("se_moshiyishiduan1qidongshi", ByteField.Init(new SettingField(), "se_moshiyishiduan1qidongshi", 61, 2, "模式一时段1启动时", "时", Commands_Key_Parameters_Setting, "00b0", 0, 23));
         map.put("se_moshiyishiduan1qidongfen", ByteField.Init(new SettingField(), "se_moshiyishiduan1qidongfen", 63, 2, "模式一时段1启动分", "分", Commands_Key_Parameters_Setting, "00b1", 0, 59));
@@ -226,13 +225,13 @@ public class DevicePointMap_CTL_RT_H1_RYRS extends DevicePointMap {
         map.put("se_moshisanshiduan4guanbengwendu", ByteField.Init(new SettingField(), "se_moshisanshiduan4guanbengwendu", 306, 2, "模式三时段4关泵温度", "℃", Commands_Key_Parameters_Setting, "0126", 10, 100));
         map.put("se_moshisanshiduan4kaibengwendu", ByteField.Init(new SettingField(), "se_moshisanshiduan4kaibengwendu", 308, 2, "模式三时段4开泵温度", "℃", Commands_Key_Parameters_Setting, "0127", 10, 100));
         map.put("se_moshisanshiduan4zhuanhuowendu", ByteField.Init(new SettingField(), "se_moshisanshiduan4zhuanhuowendu", 310, 2, "模式三时段4转火温度", "℃", Commands_Key_Parameters_Setting, "0125", 10, 100));
-        map.put("se_zhouyigongzuomoshi", ByteField.Init(new BaseInfoField(), "se_zhouyigongzuomoshi", 312, 2, "周一工作模式", coms_moshi));
-        map.put("se_zhouegongzuomoshi", ByteField.Init(new BaseInfoField(), "se_zhouegongzuomoshi", 314, 2, "周二工作模式", coms_moshi));
-        map.put("se_zhousangongzuomoshi", ByteField.Init(new BaseInfoField(), "se_zhousangongzuomoshi", 316, 2, "周三工作模式", coms_moshi));
-        map.put("se_zhousigongzuomoshi", ByteField.Init(new BaseInfoField(), "se_zhousigongzuomoshi", 318, 2, "周四工作模式", coms_moshi));
-        map.put("se_zhouwugongzuomoshi", ByteField.Init(new BaseInfoField(), "se_zhouwugongzuomoshi", 320, 2, "周五工作模式", coms_moshi));
-        map.put("se_zhouliugongzuomoshi", ByteField.Init(new BaseInfoField(), "se_zhouliugongzuomoshi", 322, 2, "周六工作模式", coms_moshi));
-        map.put("se_zhourigongzuomoshi", ByteField.Init(new BaseInfoField(), "se_zhourigongzuomoshi", 324, 2, "周日工作模式", coms_moshi));
+        map.put("se_zhouyigongzuomoshi", ByteField.Init(new SystemStatusField(), "se_zhouyigongzuomoshi", 312, 2, "周一工作模式", coms_moshi, Commands_Key_System_Ctl, "0128", 0, 2));
+        map.put("se_zhouegongzuomoshi", ByteField.Init(new SystemStatusField(), "se_zhouegongzuomoshi", 314, 2, "周二工作模式", coms_moshi, Commands_Key_System_Ctl, "0129", 0, 2));
+        map.put("se_zhousangongzuomoshi", ByteField.Init(new SystemStatusField(), "se_zhousangongzuomoshi", 316, 2, "周三工作模式", coms_moshi, Commands_Key_System_Ctl, "012a", 0, 2));
+        map.put("se_zhousigongzuomoshi", ByteField.Init(new SystemStatusField(), "se_zhousigongzuomoshi", 318, 2, "周四工作模式", coms_moshi, Commands_Key_System_Ctl, "012b", 0, 2));
+        map.put("se_zhouwugongzuomoshi", ByteField.Init(new SystemStatusField(), "se_zhouwugongzuomoshi", 320, 2, "周五工作模式", coms_moshi, Commands_Key_System_Ctl, "012c", 0, 2));
+        map.put("se_zhouliugongzuomoshi", ByteField.Init(new SystemStatusField(), "se_zhouliugongzuomoshi", 322, 2, "周六工作模式", coms_moshi, Commands_Key_System_Ctl, "012d", 0, 2));
+        map.put("se_zhourigongzuomoshi", ByteField.Init(new SystemStatusField(), "se_zhourigongzuomoshi", 324, 2, "周日工作模式", coms_moshi, Commands_Key_System_Ctl, "012e", 0, 2));
         map.put("se_chushuichaowenshezhizhi", ByteField.Init(new SettingField(), "se_chushuichaowenshezhizhi", 326, 2, "出水超温设置值", "℃", Commands_Key_Parameters_Setting, "012f", 10, 105));
         map.put("se_paiyanchaowenshezhizhi", ByteField.Init(new SettingField(), "se_paiyanchaowenshezhizhi", 328, 2, "排烟超温设置值", "℃", Commands_Key_Parameters_Setting, "0130", 10, 400));
         map.put("se_bushuibengmoshishezhizhi", ByteField.Init(new SettingField(), "se_bushuibengmoshishezhizhi", 330, 2, "补水泵模式设置值", "", Commands_Key_Parameters_Setting, "0131", 1, 2));
